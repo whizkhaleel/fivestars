@@ -1,0 +1,225 @@
+.__main {
+  .__account {
+    display: grid;
+    grid-template-columns: 67% 30%;
+    grid-gap: 0.5rem;
+    a {
+      background-color: var(--white-color);
+      color: var(--primary-color);
+      padding: 0.5rem;
+      border-radius: 4px;
+      &:hover {
+        background-color: transparent;
+        color: var(--white-color);
+        border: 1px solid var(--white-color);
+      }
+    }
+    .__info {
+      background-color: var(--primary-color);
+      color: var(--white-color);
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-radius: 4px;
+      .user {
+        padding-top: 2rem;
+        > h1 {
+          font-size: 1.4rem;
+          font-weight: 600;
+        }
+        > h3 {
+          font-size: 1.1rem;
+          color: var(--bg-color);
+        }
+        .wallet {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 2rem;
+          margin-top: 2rem;
+          h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+          }
+          h3 {
+            color: var(--bg-color);
+            font-size: 1.1rem;
+          }
+        }
+      }
+      .misc {
+        a {
+          font-size: 0.9rem;
+        }
+      }
+    }
+    .__help {
+      background-color: var(--text-color);
+      color: var(--white-color);
+      padding: 1rem;
+      border-radius: 4px;
+      .icon {
+        font-size: 4rem;
+      }
+      h1 {
+        color: #f81414;
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+      h2 {
+        color: #0ba00b;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      p {
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+        padding-bottom: 0.5rem;
+      }
+    }
+  }
+  .__container_misc {
+    display: grid;
+    grid-template-columns: 23% 74.5%;
+    gap: 0.5rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgb(75, 75, 75);
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+    .services {
+      background-color: var(--white-color);
+      padding: 0.5rem 1.3rem;
+      .service {
+        display: grid;
+        place-items: center;
+        gap: 0.5rem;
+        margin: 0.5rem auto;
+        border-radius: 5px;
+        padding: 0.6rem;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        &:hover {
+          background-color: var(--primary-color);
+          color: var(--white-color);
+          h1 {
+            color: var(--white-color);
+          }
+        }
+        .icon {
+          width: 1.8rem;
+          height: 1.5rem;
+        }
+        h1 {
+          color: var(--text-color);
+          font-size: 1rem;
+        }
+      }
+    }
+    .transactions {
+      background-color: var(--white-color);
+      padding: 0.5rem 1rem;
+      table {
+        width: 100%;
+        font-size: 1rem;
+        border-collapse: collapse;
+        border-spacing: 0;
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+        // user-select: none;
+        tr {
+          &:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+          &:hover {
+            background-color: #f2f2f2;
+          }
+        }
+        th {
+          background-color: #f2f2f2;
+        }
+        td,
+        th {
+          padding: 1rem;
+          text-align: left;
+          width: 30px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .__main {
+    .__account {
+      grid-template-columns: repeat(1, 1fr);
+      .__info {
+        padding: 1rem;
+        border-radius: 4px;
+        .user {
+          padding-top: 0.8rem;
+          > h1 {
+            font-size: 1.1rem;
+          }
+          > h3 {
+            font-size: 0.9rem;
+          }
+          .wallet {
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: 1rem;
+            h1 {
+              font-size: 1.6rem;
+            }
+            h3 {
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+      .__help {
+        h1 {
+          font-size: 1.2rem;
+        }
+        h2 {
+          font-size: 1.1rem;
+        }
+      }
+    }
+    .__container_misc {
+      grid-template-columns: repeat(1, 1fr);
+      h1 {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+      }
+      .services {
+        .service {
+          padding: 0.8rem;
+          .icon {
+            width: 2.5rem;
+            height: 2.5rem;
+          }
+          h1 {
+            font-size: 1.2rem;
+          }
+        }
+      }
+      .transactions {
+        overflow: hidden;
+        .table {
+          overflow-x: auto;
+          table {
+            td,
+            th {
+              padding: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

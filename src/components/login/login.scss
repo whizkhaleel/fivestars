@@ -1,0 +1,57 @@
+.__login {
+  background-color: var(--white-color);
+  padding: 1.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 20%);
+  width: 30rem;
+  border-radius: 1rem;
+  img {
+    width: 11rem;
+    height: 11rem;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+  .btn {
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+  .register {
+    display: flex;
+    margin: 0 auto;
+    gap: 0.3rem;
+    a {
+      font-weight: 600;
+      &:hover {
+        color: rgba($color: #7076fe, $alpha: 0.8);
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 767px) {
+  .__login {
+    padding: 0.5rem;
+    width: 25rem;
+    .form-group {
+      padding: 1.5rem 1rem;
+      .input-inline,
+      .input-group {
+        align-items: flex-start;
+      }
+    }
+    .register {
+      display: flex;
+      margin: 0 auto;
+      gap: 0.3rem;
+      a {
+        font-weight: 600;
+      }
+    }
+  }
+}

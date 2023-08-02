@@ -1,0 +1,66 @@
+.__register {
+  background-color: var(--white-color);
+  padding: 1.5rem;
+  width: 50rem;
+  border-radius: 1rem;
+  margin: 1rem auto;
+  img {
+    width: 11rem;
+    height: 11rem;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    padding-bottom: 0.4rem;
+  }
+  p {
+    margin: 0 auto;
+    background-color: rgba($color: #84e2ff, $alpha: 0.4);
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+  }
+  .btn {
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+  .register {
+    display: flex;
+    margin: 0 auto;
+    gap: 0.3rem;
+    a {
+      font-weight: 600;
+      &:hover {
+        color: rgba($color: #7076fe, $alpha: 0.8);
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 767px) {
+  .__register {
+    padding: 0.5rem;
+    width: 25rem;
+    .form-group {
+      padding: 1.5rem 1rem;
+      .input-inline,
+      .input-group {
+        align-items: flex-start;
+      }
+    }
+    .inline-input {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .register {
+      display: flex;
+      margin: 0 auto;
+      gap: 0.3rem;
+      a {
+        font-weight: 600;
+      }
+    }
+  }
+}

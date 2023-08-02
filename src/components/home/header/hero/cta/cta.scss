@@ -1,0 +1,27 @@
+.__buttons {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 2rem;
+  .btn {
+    font-size: 1.1rem;
+    padding: 0.6rem 1.5rem;
+    border-color: transparent;
+    color: var(--text-color);
+    &.btn-log {
+      background-color: var(--white-color);
+      color: var(--primary-color);
+      &:hover {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+      }
+    }
+    &.btn-reg {
+      background-color: var(--primary-color);
+      color: var(--white-color);
+      &:hover {
+        background-color: var(--white-color);
+        color: var(--primary-color);
+      }
+    }
+  }
+}

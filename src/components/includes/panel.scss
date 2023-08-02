@@ -1,0 +1,58 @@
+.__main {
+  background-color: transparent;
+  margin-top: 4.5rem;
+  .breadcrumb {
+    margin: 0.8rem 0;
+    h1 {
+      font-size: 1.4rem;
+    }
+    .link {
+      font-size: 0.9rem;
+      word-spacing: 2px;
+    }
+  }
+
+  .__panel {
+    background-color: var(--white-color);
+    border-radius: 5px;
+    form {
+      padding: 1.5rem 3rem;
+      .input-group {
+        align-items: flex-start;
+        label {
+          float: left;
+        }
+        input,
+        select {
+          width: 30%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .__main {
+    .breadcrumb {
+      h1 {
+        font-size: 1.3rem;
+      }
+      .link {
+        font-size: 0.9rem;
+      }
+    }
+
+    .__panel {
+      width: 100%;
+      form {
+        padding: 1.5rem;
+        .input-group {
+          input,
+          select {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.__main_container {
+  display: flex;
+}
+
+.__container {
+  flex: 3;
+  margin: 1rem 1.5rem;
+}
+
+@media screen and (max-width: 769px) {
+  .__container {
+    width: 100vw;
+  }
+}

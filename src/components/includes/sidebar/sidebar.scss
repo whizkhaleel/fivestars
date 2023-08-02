@@ -1,0 +1,90 @@
+.__sidebar {
+  position: relative;
+  width: 22.5rem;
+  height: 100vh;
+  flex: 0.93;
+  aside {
+    background-color: var(--white-color);
+    position: fixed;
+    padding: 2.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: 100%;
+    overflow-y: auto;
+    margin-top: 3.5rem;
+    ul {
+      h1 {
+        color: var(--text-gray);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 0.8rem;
+        padding: 0.2rem 0;
+        margin-top: 0.5rem;
+      }
+      li {
+        font-weight: 500;
+        transition: var(--transition);
+        font-size: 1.1rem;
+        a {
+          color: var(--text-gray);
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+          padding: 0.7rem;
+          &:hover {
+            background-color: rgba($color: #6f3df4, $alpha: 0.1);
+            color: var(--primary-color);
+            border-radius: 2px;
+          }
+          &.active {
+            background-color: rgba($color: #6f3df4, $alpha: 0.2);
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 2px;
+            font-weight: 600;
+          }
+          span {
+            color: var(--text-color);
+          }
+        }
+      }
+    }
+    .dropdown {
+      height: 0;
+      overflow: hidden;
+      padding: 0 2rem 0 4rem;
+    }
+    .expand {
+      height: 100%;
+      transition: height 0.5s ease-in-out;
+    }
+  }
+}
+
+.mobile {
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .__sidebar {
+    flex: 0;
+  }
+  aside {
+    width: 20rem;
+    transform: translateX(-100%);
+    margin-left: -1rem;
+    transition: transform 0.5s ease-in-out;
+    ul {
+      h1 {
+        font-size: 0.7rem;
+      }
+      li {
+        font-size: 0.9rem;
+      }
+    }
+    .dropdown {
+      padding: 0 1rem 0 4rem;
+    }
+  }
+}

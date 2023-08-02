@@ -1,0 +1,38 @@
+.settings__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: auto;
+  padding: 1.2rem 4rem;
+  a {
+    color: var(--white-color);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 500;
+    &:nth-child(1) {
+      background-color: #ffa500;
+      &.active {
+        border-bottom: 4px solid #0000ff;
+      }
+    }
+    &:nth-child(2) {
+      background-color: #0000ff;
+      &.active {
+        border-bottom: 4px solid #ffa500;
+      }
+    }
+    &:hover {
+      transform: translate(-5%);
+    }
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .settings__buttons {
+    padding: 1.2rem 1.5rem;
+    a {
+      font-size: 0.9rem;
+      padding: 0.5rem 0.7rem;
+    }
+  }
+}
