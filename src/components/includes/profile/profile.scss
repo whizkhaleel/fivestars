@@ -1,0 +1,25 @@
+@media screen and (max-width: 769px) {
+  .__main {
+    .breadcrumb {
+      h1 {
+        font-size: 1.3rem;
+      }
+      .link {
+        font-size: 0.9rem;
+      }
+    }
+
+    .__panel {
+      width: 100%;
+      form {
+        padding: 1rem;
+        .input-group {
+          input,
+          select {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

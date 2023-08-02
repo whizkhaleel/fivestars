@@ -1,5 +1,6 @@
 import React from "react";
 import "../panel.scss";
+import "./profile.scss";
 
 const Profile = () => {
   return (
