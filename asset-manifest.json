@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/fivestars/static/css/main.87fc8023.css",
+    "main.js": "/fivestars/static/js/main.f92c48bf.js",
+    "static/media/about_image.png": "/fivestars/static/media/about_image.b9fa25f30794479890fa.png",
+    "static/media/logo_e.png": "/fivestars/static/media/logo_e.3c6239260a188e05a110.png",
+    "static/media/buy_data.png": "/fivestars/static/media/buy_data.068bfad1b458d88576ed.png",
+    "static/media/logo.png": "/fivestars/static/media/logo.9780bdda2ad6f74df0dc.png",
+    "static/media/hero_image.jpg": "/fivestars/static/media/hero_image.b5573949d3065aa585a5.jpg",
+    "static/media/glo.png": "/fivestars/static/media/glo.fe39e76e69c4efe50d5d.png",
+    "static/media/howitworks.png": "/fivestars/static/media/howitworks.86d9c3784b831cebb1e2.png",
+    "static/media/airtel.png": "/fivestars/static/media/airtel.c630083fa6db059c55ac.png",
+    "static/media/mtn.png": "/fivestars/static/media/mtn.bea313ecba1f86d0b623.png",
+    "static/media/9mobile.png": "/fivestars/static/media/9mobile.9b73eebef46ffb589730.png",
+    "static/media/backgroud.jpg": "/fivestars/static/media/backgroud.2639060ef7990e0302be.jpg",
+    "static/media/airtime_cash.png": "/fivestars/static/media/airtime_cash.7a12f758e25e3b626fb3.png",
+    "static/media/bulk_sms.jpg": "/fivestars/static/media/bulk_sms.fc9061d188b43643d162.jpg",
+    "static/media/airtime_topup.png": "/fivestars/static/media/airtime_topup.35446424a225596abe82.png",
+    "static/media/cable_sub.png": "/fivestars/static/media/cable_sub.091108ce1a37e1793392.png",
+    "static/media/utility_payment.png": "/fivestars/static/media/utility_payment.73cb945d0805bacd7d6b.png",
+    "index.html": "/fivestars/index.html",
+    "main.87fc8023.css.map": "/fivestars/static/css/main.87fc8023.css.map",
+    "main.f92c48bf.js.map": "/fivestars/static/js/main.f92c48bf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.87fc8023.css",
+    "static/js/main.f92c48bf.js"
+  ]
+}
