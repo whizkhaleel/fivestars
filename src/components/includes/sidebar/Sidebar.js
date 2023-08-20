@@ -17,7 +17,7 @@ import { TiMessages } from "react-icons/ti";
 import { MdSettingsInputAntenna } from "react-icons/md";
 import { FiSettings } from "react-icons/fi";
 
-export const SidebarUser = ({ isOpen, sidebarRef }) => {
+export const SidebarUser = ({ isOpen, setisOpen, sidebarRef }) => {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
   const toggleHistory = () => {
@@ -35,17 +35,17 @@ export const SidebarUser = ({ isOpen, sidebarRef }) => {
       <aside className={isOpen ? "mobile" : ""} ref={sidebarRef}>
         <ul>
           <li>
-            <NavLink exact to="/user/" activeClassName="active">
+            <NavLink to="/user/" onClick={() => setisOpen(!isOpen)}>
               <TbLayoutDashboard /> <span>Dashboard</span>
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="profile" activeClassName="active">
+            <NavLink to="profile" onClick={() => setisOpen(!isOpen)}>
               <CiUser /> <span>Profile</span>
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="fund" activeClassName="active">
+            <NavLink to="fund" onClick={() => setisOpen(!isOpen)}>
               <SlWallet /> <span>Fund Wallet</span>
             </NavLink>
           </li>
@@ -54,32 +54,32 @@ export const SidebarUser = ({ isOpen, sidebarRef }) => {
         <ul>
           <h1>Transactions</h1>
           <li>
-            <NavLink exact to="data" activeClassName="active">
+            <NavLink to="data" onClick={() => setisOpen(!isOpen)}>
               <AiOutlineWifi /> <span>Buy Data</span>
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="airtime" activeClassName="active">
+            <NavLink to="airtime" onClick={() => setisOpen(!isOpen)}>
               <BsPhone /> <span>Buy Airtime</span>
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="datacard" activeClassName="active">
+            <NavLink to="datacard" onClick={() => setisOpen(!isOpen)}>
               <AiOutlineCreditCard /> <span>Data E-PIN</span>
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="convert" activeClassName="active">
+            <NavLink to="convert" onClick={() => setisOpen(!isOpen)}>
               <TbCash /> <span>Airtime to Cash</span>
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="cablesubs" activeClassName="active">
+            <NavLink to="cablesubs" onClick={() => setisOpen(!isOpen)}>
               <CiDesktop /> <span>Cable Subscription</span>
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="bulksms" activeClassName="active">
+            <NavLink to="bulksms" onClick={() => setisOpen(!isOpen)}>
               <TiMessages /> <span>Bulk SMS</span>
             </NavLink>
           </li>
@@ -102,30 +102,33 @@ export const SidebarUser = ({ isOpen, sidebarRef }) => {
             <div className={`dropdown ${isHistoryOpen ? "expand" : ""}`}>
               <ul>
                 <li>
-                  <NavLink to="fundhistory">
+                  <NavLink to="fundhistory" onClick={() => setisOpen(!isOpen)}>
                     <SlWallet /> <span>Fund History</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="datahistory">
+                  <NavLink to="datahistory" onClick={() => setisOpen(!isOpen)}>
                     <AiOutlineWifi />
                     <span>Data History</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="airtimehistroy">
+                  <NavLink
+                    to="airtimehistory"
+                    onClick={() => setisOpen(!isOpen)}
+                  >
                     <BsPhone />
                     <span>Airtime History</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="epinhistory">
+                  <NavLink to="epinhistory" onClick={() => setisOpen(!isOpen)}>
                     <AiOutlineCreditCard />
-                    <span>Data E-PIN History</span>
+                    <span>E-PIN History</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="cablehistory">
+                  <NavLink to="cablehistory" onClick={() => setisOpen(!isOpen)}>
                     <CiDesktop />
                     <span>Cable History</span>
                   </NavLink>
@@ -154,12 +157,12 @@ export const SidebarUser = ({ isOpen, sidebarRef }) => {
             <div className={`dropdown ${isSettingsOpen ? "expand" : ""}`}>
               <ul style={{ marginLeft: "-1rem" }}>
                 <li>
-                  <NavLink to="changepin">
+                  <NavLink to="changepin" onClick={() => setisOpen(!isOpen)}>
                     <SlWallet /> <span>Change PIN</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="changepass">
+                  <NavLink to="changepass" onClick={() => setisOpen(!isOpen)}>
                     <AiOutlineWifi />
                     <span>Change Password</span>
                   </NavLink>
@@ -168,7 +171,7 @@ export const SidebarUser = ({ isOpen, sidebarRef }) => {
             </div>
           )}
           <li>
-            <NavLink to="/logout">
+            <NavLink to="/logout" onClick={() => setisOpen(!isOpen)}>
               <AiOutlineLogout /> <span>Logout</span>
             </NavLink>
           </li>
@@ -263,30 +266,30 @@ export const SidebarAdmin = ({ isOpen, sidebarRef }) => {
             <div className={`dropdown ${isHistoryOpen ? "expand" : ""}`}>
               <ul>
                 <li>
-                  <NavLink to="/transaction1">
+                  <NavLink to="fundhistory">
                     <SlWallet /> <span>Fund History</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/transaction2">
+                  <NavLink to="datahistory">
                     <AiOutlineWifi />
                     <span>Data History</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/transaction3">
+                  <NavLink to="airtimehistory">
                     <BsPhone />
                     <span>Airtime History</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/transaction4">
+                  <NavLink to="epinhistory">
                     <AiOutlineCreditCard />
-                    <span>Data E-PIN History</span>
+                    <span>E-PIN History</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/transaction5">
+                  <NavLink to="cablehistory">
                     <CiDesktop />
                     <span>Cable History</span>
                   </NavLink>

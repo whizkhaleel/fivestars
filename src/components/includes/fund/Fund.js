@@ -38,7 +38,7 @@ const Fund = () => {
                 <h1>Account No.: </h1>
                 <div className="acc_no">
                   <h2>1546352635</h2>
-                  <MdContentCopy />
+                  <MdContentCopy className="copy" />
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@ const Fund = () => {
                 <h1>Account No.: </h1>
                 <div className="acc_no">
                   <h2>1546352635</h2>
-                  <MdContentCopy />
+                  <MdContentCopy className="copy" />
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@ const Fund = () => {
                 <h1>Account No.: </h1>
                 <div className="acc_no">
                   <h2>1546352635</h2>
-                  <MdContentCopy />
+                  <MdContentCopy className="copy" />
                 </div>
               </div>
             </div>

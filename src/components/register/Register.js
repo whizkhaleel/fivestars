@@ -1,11 +1,13 @@
 import React from "react";
 import "./register.scss";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { FaRegTimesCircle } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -16,7 +18,6 @@ const Register = () => {
     username: "",
     password: "",
     cpassword: "",
-    referrer: "",
   });
 
   const handleInput = (e) => {
@@ -39,20 +40,52 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const userData = {
+    const payload = {
       firstname: inputs.firstname,
       lastname: inputs.lastname,
       email: inputs.email,
       phone: inputs.phone,
       username: inputs.username,
       password: inputs.password,
-      referrer: inputs.referrer,
     };
 
     axios
-      .post("/api/register", userData)
+      .post("http://127.0.0.1:3001/api/register", payload)
       .then((response) => {
-        console.log(response.data);
+        if (response.status === 201) {
+          toast.success(`${response.data.message}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else if (response.status === 500) {
+          toast.error("Something went wrong!", {
+            position: "top-center",
+            autoClose: 6000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          toast.warning(`${response.data.message}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -65,6 +98,7 @@ const Register = () => {
 
   return (
     <div id="register">
+      <ToastContainer />
       <div className="__register">
         <img src={logo} alt="register logo" />
         <h1>Register</h1>

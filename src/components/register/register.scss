@@ -3,7 +3,7 @@
   padding: 1.5rem;
   width: 50rem;
   border-radius: 1rem;
-  margin: 1rem auto;
+  margin: 2rem auto;
   img {
     width: 11rem;
     height: 11rem;
@@ -42,13 +42,9 @@
 @media screen and(max-width: 767px) {
   .__register {
     padding: 0.5rem;
-    width: 25rem;
+    width: 24rem;
     .form-group {
       padding: 1.5rem 1rem;
-      .input-inline,
-      .input-group {
-        align-items: flex-start;
-      }
     }
     .inline-input {
       flex-direction: column;

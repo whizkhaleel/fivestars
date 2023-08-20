@@ -1,11 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./dashboard.scss";
 import Nav from "../../includes/nav/Nav";
 import { SidebarAdmin } from "../../includes/sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
+import RequireAuth from "../../../RequireAuth";
+import jwtDecode from "jwt-decode";
 
 const AdminDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const token = localStorage.getItem("Token");
+  const navigate = useNavigate();
 
   const sidebarRef = useRef(null);
   const navRef = useRef(null);
@@ -23,6 +28,12 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
+    const decode = jwtDecode(token);
+
+    if (decode.userRole !== 1) {
+      navigate("/login");
+      return;
+    }
     document.addEventListener("click", handleOutsideClick);
 
     return () => {
@@ -53,4 +64,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default RequireAuth(AdminDashboard);

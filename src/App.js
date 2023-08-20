@@ -28,6 +28,11 @@ import Data from "./components/admin/services/data/Data";
 import DataCoupons from "./components/admin/services/datacoupons/DataCoupons";
 import Fund from "./components/includes/fund/Fund";
 import Profile from "./components/includes/profile/Profile";
+import FundHistory from "./components/includes/history/fundhistory/FundHistory";
+import AirtimeHistory from "./components/includes/history/airtimehistory/AirtimeHistory";
+import DataHistory from "./components/includes/history/datahistory/DataHistory";
+import EpinHistory from "./components/includes/history/epinhistory/EpinHistory";
+import CableHistory from "./components/includes/history/cablehistory/CableHistory";
 
 const App = () => {
   return (
@@ -35,7 +40,7 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route exact path="/user" element={<UserDashboard />}>
+      <Route path="/user" element={<UserDashboard />}>
         <Route index element={<UserHome />} />
         <Route path="profile" element={<Profile />} />
         <Route path="fund" element={<Fund />} />
@@ -43,11 +48,16 @@ const App = () => {
         <Route path="data" element={<BuyData />} />
         <Route path="datacard" element={<DataCard />} />
         <Route path="cablesubs" element={<CableSubs />} />
+        <Route path="fundhistory" element={<FundHistory />} />
+        <Route path="airtimehistory" element={<AirtimeHistory />} />
+        <Route path="datahistory" element={<DataHistory />} />
+        <Route path="epinhistory" element={<EpinHistory />} />
+        <Route path="cablehistory" element={<CableHistory />} />
         <Route path="changepin" element={<ChangePin />} />
         <Route path="changepass" element={<ChangePass />} />
         <Route path="*" element={<Notfound />} />
       </Route>
-      <Route exact path="/admin" element={<AdminDashboard />}>
+      <Route path="/admin" element={<AdminDashboard />}>
         <Route index element={<AdminHome />} />
         <Route path="profile" element={<Profile />} />
         <Route path="fund" element={<Fund />} />
@@ -55,6 +65,11 @@ const App = () => {
         <Route path="data" element={<BuyData />} />
         <Route path="datacard" element={<DataCard />} />
         <Route path="cablesubs" element={<CableSubs />} />
+        <Route path="fundhistory" element={<FundHistory />} />
+        <Route path="airtimehistory" element={<AirtimeHistory />} />
+        <Route path="datahistory" element={<DataHistory />} />
+        <Route path="epinhistory" element={<EpinHistory />} />
+        <Route path="cablehistory" element={<CableHistory />} />
         <Route path="changepin" element={<ChangePin />} />
         <Route path="changepass" element={<ChangePass />} />
         <Route path="apisettings" element={<ApiSettings />}>

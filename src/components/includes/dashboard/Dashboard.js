@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../panel.scss";
 import "./dashboard.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { BsPhone } from "react-icons/bs";
 import { TbCash } from "react-icons/tb";
@@ -15,8 +15,21 @@ import "jquery/dist/jquery.min.js";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import RequireAuth from "../../../RequireAuth";
+import jwtDecode from "jwt-decode";
 
-export const UserHome = () => {
+const User = ({ user, token }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const decode = jwtDecode(token);
+
+    if (!token || decode.userRole !== 2) {
+      navigate("/login");
+      return;
+    }
+  }, [navigate, token]);
+
   return (
     <div className="__main">
       <div className="breadcrumb">
@@ -26,7 +39,7 @@ export const UserHome = () => {
       <div className="__account">
         <div className="__info">
           <div className="user">
-            <h1>Welcome, Whiz Khaleel</h1>
+            <h1>Welcome, {user.f_name}</h1>
             <h3>Good Morning!</h3>
             <div className="wallet">
               <div>
@@ -132,7 +145,7 @@ export const UserHome = () => {
   );
 };
 
-export const AdminHome = () => {
+const Admin = ({ user, token }) => {
   useEffect(() => {
     $(document).ready(() => {
       $("#transactions").DataTable();
@@ -147,7 +160,7 @@ export const AdminHome = () => {
       <div className="__account">
         <div className="__info">
           <div className="user">
-            <h1>Welcome, Admin</h1>
+            <h1>Welcome, {user.f_name}</h1>
             <h3>Good Morning!</h3>
             <div className="wallet">
               <div>
@@ -256,3 +269,8 @@ export const AdminHome = () => {
     </div>
   );
 };
+
+const UserHome = RequireAuth(User);
+const AdminHome = RequireAuth(Admin);
+
+export { UserHome, AdminHome };

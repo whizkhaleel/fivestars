@@ -38,8 +38,6 @@ body {
   font-family: "Poppins", sans-serif;
   color: var(--text-color);
   line-height: 1.5;
-  height: 100vh;
-  width: 100vw;
   overflow-x: hidden;
 }
 
@@ -102,7 +100,7 @@ a {
   color: var(--primary-color);
   width: max-content;
   display: inline;
-  padding: 0.5rem 1.5rem;
+  padding: 0.9rem 1.5rem;
   font-size: 1rem;
   cursor: pointer;
   border: 1px solid var(--primary-color);
@@ -130,7 +128,7 @@ img {
   flex-direction: column;
   width: 100%;
   gap: 1rem;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 1rem;
   .inline-input {
     display: flex;
     gap: 0.5rem;
@@ -138,7 +136,7 @@ img {
   .input-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     gap: 0.7rem;
     width: 100%;
     input,
@@ -170,6 +168,21 @@ img {
   }
 }
 
+.wrapper {
+  background-color: var(--white-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 @media screen and(max-width: 920px) {
   section {
     margin-top: 2rem !important;
@@ -182,6 +195,6 @@ img {
     }
   }
   .container {
-    width: var(--container-width-sm) !important;
+    width: var(--container-width-sm);
   }
 }

@@ -1,11 +1,9 @@
 .__login {
   background-color: var(--white-color);
   padding: 1.5rem;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 20%);
   width: 30rem;
   border-radius: 1rem;
+  margin: 5rem auto;
   img {
     width: 11rem;
     height: 11rem;
@@ -37,14 +35,7 @@
 @media screen and(max-width: 767px) {
   .__login {
     padding: 0.5rem;
-    width: 25rem;
-    .form-group {
-      padding: 1.5rem 1rem;
-      .input-inline,
-      .input-group {
-        align-items: flex-start;
-      }
-    }
+    width: 23rem;
     .register {
       display: flex;
       margin: 0 auto;
