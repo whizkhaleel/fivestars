@@ -16,7 +16,7 @@ const URI =
   "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
 
 app.get("/", (req, res) => {
-  res.sendFile("index.html");
+  res.send({ message: "Hello" });
 });
 
 app.post("/api/register", async (req, res) => {
