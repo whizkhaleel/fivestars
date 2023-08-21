@@ -13,8 +13,8 @@ const RequireAuth = (WrappedComponent) => {
     const [done, setDone] = useState();
 
     useEffect(() => {
-      if (!token) {
-        navigate("/login");
+      if (token) {
+        
       } else {
         try {
           const decodedToken = jwtDecode(token);
