@@ -1,11 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const body_parser = require("body-parser");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const ObjectId = require("mongodb").ObjectId;
 
+const buildPath = path.join(__dirname, "build");
 const app = express();
 app.use(cors({}));
 app.use(body_parser.json());
@@ -14,6 +16,10 @@ const { MongoClient, ObjectID } = require("mongodb");
 
 const URI =
   "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
+});
 
 app.post("/api/register", async (req, res) => {
   const client = new MongoClient(URI, {
