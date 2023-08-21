@@ -33,20 +33,12 @@ import AirtimeHistory from "./components/includes/history/airtimehistory/Airtime
 import DataHistory from "./components/includes/history/datahistory/DataHistory";
 import EpinHistory from "./components/includes/history/epinhistory/EpinHistory";
 import CableHistory from "./components/includes/history/cablehistory/CableHistory";
-import { AuthProvider } from "./auth";
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route
-        path="/login"
-        element={
-          <AuthProvider>
-            <Login />
-          </AuthProvider>
-        }
-      />
+      <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/user" element={<UserDashboard />}>
         <Route index element={<UserHome />} />
