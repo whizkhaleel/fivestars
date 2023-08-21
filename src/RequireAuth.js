@@ -13,9 +13,9 @@ const RequireAuth = (WrappedComponent) => {
     const [done, setDone] = useState();
 
     useEffect(() => {
-      if (token) {
+      
         
-      } else {
+
         try {
           const decodedToken = jwtDecode(token);
 
@@ -40,7 +40,7 @@ const RequireAuth = (WrappedComponent) => {
           console.error("Token verification failed:", error);
           navigate("/login");
         }
-      }
+      
     }, [navigate, token]);
 
     if (!done) {
