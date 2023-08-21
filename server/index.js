@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 const body_parser = require("body-parser");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
@@ -17,7 +16,7 @@ const URI =
   "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
 
 app.get("*", (req, res) => {
-  res.sendFile(path("index.html"));
+  res.sendFile("index.html");
 });
 
 app.post("/api/register", async (req, res) => {
