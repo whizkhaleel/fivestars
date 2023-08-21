@@ -4,8 +4,8 @@ import App from "./App";
 import "./index.scss";
 import { AuthProvider } from "./auth";
 
-const domNode = document.getElementById("root");
-const root = createRoot(domNode);
+const Node = document.getElementById("root");
+const root = createRoot(Node);
 
 root.render(
   <AuthProvider>

@@ -37,7 +37,7 @@ const RequireAuth = (WrappedComponent) => {
               });
           }
         } catch (error) {
-          console.error("Token verification failed:", error);
+          console.error("Token verification failed: ", error);
           navigate("/login");
         }
       }

@@ -23,11 +23,6 @@ const User = ({ user, token }) => {
 
   useEffect(() => {
     const decode = jwtDecode(token);
-
-    if (!token || decode.userRole !== 2) {
-      navigate("/login");
-      return;
-    }
   }, [navigate, token]);
 
   return (

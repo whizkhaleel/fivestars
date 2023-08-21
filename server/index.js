@@ -7,11 +7,7 @@ const jwt = require("jsonwebtoken");
 const ObjectId = require("mongodb").ObjectId;
 
 const app = express();
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
+app.use(cors({}));
 app.use(body_parser.json());
 
 const { MongoClient, ObjectID } = require("mongodb");
