@@ -9,7 +9,8 @@ const ObjectId = require("mongodb").ObjectId;
 
 const buildPath = path.join(__dirname, "build");
 const app = express();
-app.use(cors({}));
+app.use(express.static(buildPath));
+app.use(cors());
 app.use(body_parser.json());
 
 const { MongoClient, ObjectID } = require("mongodb");
@@ -165,5 +166,5 @@ app.post("/api/user/:userID", async (req, res) => {
 
 app.set("port", 3000);
 app.listen(3000, () => {
-  console.log("Server is running on port 3001");
+  console.log("Server is running on port 3000");
 });
