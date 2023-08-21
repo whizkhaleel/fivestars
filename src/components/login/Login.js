@@ -21,10 +21,11 @@ const Login = () => {
     };
 
     axios
-      .post("https://fivestarsvtu.onrender.com/api/login", payload)
+      .post("/api/login", payload)
       .then((response) => {
         if (response.status === 201) {
           const token = response.data.token;
+          login(token);
           const navigate = () => {
             const decode = jwtDecode(token);
             const userRole = decode.userRole;
@@ -33,7 +34,6 @@ const Login = () => {
 
             window.location = url;
           };
-          login(token);
           toast.success(`${response.data.message}`, {
             position: "top-center",
             autoClose: 5000,

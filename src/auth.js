@@ -4,7 +4,6 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
-  console.log(token);
 
   const login = (newToken) => {
     setToken(newToken);
