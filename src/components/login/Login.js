@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import jwtDecode from "jwt-decode";
+import { useAuth } from "../../auth";
 const Login = () => {
+  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,7 +33,7 @@ const Login = () => {
 
             window.location = url;
           };
-          localStorage.setItem("Token", token);
+          login(token);
           toast.success(`${response.data.message}`, {
             position: "top-center",
             autoClose: 5000,

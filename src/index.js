@@ -8,9 +8,9 @@ const Node = document.getElementById("root");
 const root = createRoot(Node);
 
 root.render(
-  
-    <BrowserRouter>
+  <BrowserRouter>
+    <AuthProvider>
       <App />
-    </BrowserRouter>
-  
+    </AuthProvider>
+  </BrowserRouter>
 );
