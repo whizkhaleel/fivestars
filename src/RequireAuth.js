@@ -47,11 +47,11 @@ const RequireAuth = (WrappedComponent) => {
       return <LoadingComponent />;
     }
 
-    if (!user) {
+    
       return <WrappedComponent {...props} user={user} token={token} />;
-    } else {
-      return null;
-    }
+    
+      
+    
   };
 
   return AuthenticatedComponent;
