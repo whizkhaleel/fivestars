@@ -26,7 +26,7 @@ const RequireAuth = (WrappedComponent) => {
             const userID = decodedToken.userID;
 
             axios
-              .post(`http://127.0.0.1:3001/api/user/${userID}`)
+              .post(`https://fivestarsvtu.onrender.com/api/user/${userID}`)
               .then((response) => {
                 setUser(response.data);
                 setDone(true);

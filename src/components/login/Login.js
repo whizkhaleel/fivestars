@@ -19,7 +19,7 @@ const Login = () => {
     };
 
     axios
-      .post("http://127.0.0.1:3001/api/login", payload)
+      .post("https://fivestarsvtu.onrender.com/api/login", payload)
       .then((response) => {
         if (response.status === 201) {
           const token = response.data.token;

@@ -157,7 +157,7 @@ app.post("/api/user/:userID", async (req, res) => {
   }
 });
 
-app.set("port", 3001);
-app.listen(3001, () => {
+app.set("port", 3000);
+app.listen(3000, () => {
   console.log("Server is running on port 3001");
 });
