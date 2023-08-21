@@ -18,7 +18,7 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import RequireAuth from "../../../RequireAuth";
 import jwtDecode from "jwt-decode";
 
-const User = ({ user, token }) => {
+export const UserHome = ({ user, token }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -145,7 +145,7 @@ const User = ({ user, token }) => {
   );
 };
 
-const Admin = ({ user, token }) => {
+export const AdminHome = ({ user, token }) => {
   useEffect(() => {
     $(document).ready(() => {
       $("#transactions").DataTable();
@@ -270,7 +270,3 @@ const Admin = ({ user, token }) => {
   );
 };
 
-const UserHome = User;
-const AdminHome = Admin;
-
-export { UserHome, AdminHome };
