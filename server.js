@@ -9,7 +9,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 const buildPath = path.join(__dirname, "build");
 const app = express();
-app.use(express.static(buildPath));
+app.use("/", express.static(buildPath));
 app.use(cors());
 app.use(body_parser.json());
 
