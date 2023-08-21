@@ -270,7 +270,7 @@ const Admin = ({ user, token }) => {
   );
 };
 
-const UserHome = RequireAuth(User);
-const AdminHome = RequireAuth(Admin);
+const UserHome = User;
+const AdminHome = Admin;
 
 export { UserHome, AdminHome };
