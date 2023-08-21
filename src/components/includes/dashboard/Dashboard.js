@@ -21,14 +21,7 @@ import jwtDecode from "jwt-decode";
 export const UserHome = ({ user, token }) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const decode = jwtDecode(token);
-
-    if (!token || decode.userRole !== 2) {
-      navigate("/login");
-      return;
-    }
-  }, [navigate, token]);
+  
 
   return (
     <div className="__main">
