@@ -47,7 +47,7 @@ const RequireAuth = (WrappedComponent) => {
       return <LoadingComponent />;
     }
 
-    if (user) {
+    if (!user) {
       return <WrappedComponent {...props} user={user} token={token} />;
     } else {
       return null;
