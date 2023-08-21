@@ -15,7 +15,7 @@ const { MongoClient, ObjectID } = require("mongodb");
 const URI =
   "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile("index.html");
 });
 
