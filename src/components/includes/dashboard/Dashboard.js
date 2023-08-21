@@ -15,7 +15,7 @@ import "jquery/dist/jquery.min.js";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
-import RequireAuth from "../../../RequireAuth";
+
 import jwtDecode from "jwt-decode";
 
 export const UserHome = ({ user, token }) => {
