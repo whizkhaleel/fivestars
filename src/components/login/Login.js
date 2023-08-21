@@ -9,7 +9,7 @@ import logo from "../../assets/logo.png";
 import jwtDecode from "jwt-decode";
 import { useAuth } from "../../auth";
 const Login = () => {
-  const { setToken } = useAuth();
+  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,7 +25,7 @@ const Login = () => {
       .then((response) => {
         if (response.status === 201) {
           const token = response.data.token;
-          setToken(token);
+          localStorage.setItem("Token", token);
           const navigate = () => {
             const decode = jwtDecode(token);
             const userRole = decode.userRole;
