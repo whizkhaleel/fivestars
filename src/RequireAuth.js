@@ -13,9 +13,7 @@ const RequireAuth = (WrappedComponent) => {
     const [done, setDone] = useState();
 
     useEffect(() => {
-      alert(localStorage.getItem("Token"));
-      alert("Hello the token is " + token);
-      if (!token) {
+      if (token === null || token === "") {
         navigate("/login");
       } else {
         try {
