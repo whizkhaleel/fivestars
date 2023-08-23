@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import { UseAuth } from "./auth";
+import { useAuth } from "./auth";
 import axios from "axios";
 import LoadingComponent from "./LoadingComponent";
 
 const RequireAuth = (WrappedComponent) => {
   const AuthenticatedComponent = (props) => {
     const navigate = useNavigate();
-    const { token } = UseAuth();
+    const { token } = useAuth();
     const [user, setUser] = useState();
     const [done, setDone] = useState();
 
     useEffect(() => {
+      alert(token);
       if (!token) {
         navigate("/login");
       } else {
@@ -26,7 +27,7 @@ const RequireAuth = (WrappedComponent) => {
             const userID = decodedToken.userID;
 
             axios
-              .post(`https://fivestarsvtu.onrender.com/api/user/${userID}`)
+              .post(`/api/user/${userID}`)
               .then((response) => {
                 setUser(response.data);
                 setDone(true);

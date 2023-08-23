@@ -16,15 +16,8 @@ import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import RequireAuth from "../../../RequireAuth";
-import jwtDecode from "jwt-decode";
 
-const User = ({ user, token }) => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const decode = jwtDecode(token);
-  }, [navigate, token]);
-
+const User = ({ user }) => {
   return (
     <div className="__main">
       <div className="breadcrumb">
@@ -140,7 +133,7 @@ const User = ({ user, token }) => {
   );
 };
 
-const Admin = ({ user, token }) => {
+const Admin = ({ user }) => {
   useEffect(() => {
     $(document).ready(() => {
       $("#transactions").DataTable();
