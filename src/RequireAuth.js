@@ -13,7 +13,7 @@ const RequireAuth = (WrappedComponent) => {
     const [done, setDone] = useState();
 
     useEffect(() => {
-      alert(token);
+      alert("Hello the token is " + token);
       if (!token) {
         navigate("/login");
       } else {
