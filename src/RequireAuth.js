@@ -14,6 +14,7 @@ const RequireAuth = (WrappedComponent) => {
 
     useEffect(() => {
       if (token === null || token === "") {
+        alert("Token null");
         navigate("/login");
       } else {
         try {
