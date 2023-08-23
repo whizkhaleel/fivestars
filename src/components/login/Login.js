@@ -23,7 +23,7 @@ const Login = () => {
       .then((response) => {
         if (response.status === 201) {
           const token = response.data.token;
-          alert(token);
+          console.log(token);
           localStorage.setItem("Token", token);
           const navigate = () => {
             const decode = jwtDecode(token);
