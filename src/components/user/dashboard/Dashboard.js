@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 
 const UserDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const token = localStorage.getItem("Token");
 
   const sidebarRef = useRef(null);
   const navRef = useRef(null);
