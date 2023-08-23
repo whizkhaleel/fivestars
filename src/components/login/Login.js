@@ -25,7 +25,8 @@ const Login = () => {
       .then((response) => {
         if (response.status === 201) {
           const token = response.data.token;
-          login(token);
+          setToken(token);
+
           const navigate = () => {
             const decode = jwtDecode(token);
             const userRole = decode.userRole;

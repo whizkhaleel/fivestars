@@ -8,7 +8,7 @@ import LoadingComponent from "./LoadingComponent";
 const RequireAuth = (WrappedComponent) => {
   const AuthenticatedComponent = (props) => {
     const navigate = useNavigate();
-    const { token } = useAuth();
+    const { setToken } = useAuth();
     const [user, setUser] = useState();
     const [done, setDone] = useState();
 
