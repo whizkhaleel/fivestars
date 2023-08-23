@@ -3,7 +3,6 @@ import "./dashboard.scss";
 import Nav from "../../includes/nav/Nav";
 import { SidebarUser } from "../../includes/sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
-import RequireAuth from "../../../RequireAuth";
 
 const UserDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +23,12 @@ const UserDashboard = () => {
   };
 
   useEffect(() => {
+    const decode = jwtDecode(token);
+
+    if (decode.userRole !== 2) {
+      navigate("/login");
+      return;
+    }
     document.addEventListener("click", handleOutsideClick);
 
     return () => {
@@ -54,4 +59,4 @@ const UserDashboard = () => {
   );
 };
 
-export default RequireAuth(UserDashboard);
+export default UserDashboard;

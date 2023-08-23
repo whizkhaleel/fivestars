@@ -18,6 +18,10 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import RequireAuth from "../../../RequireAuth";
 
 const User = ({ user }) => {
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return (
     <div className="__main">
       <div className="breadcrumb">

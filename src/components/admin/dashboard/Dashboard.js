@@ -4,7 +4,6 @@ import "./dashboard.scss";
 import Nav from "../../includes/nav/Nav";
 import { SidebarAdmin } from "../../includes/sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
-import RequireAuth from "../../../RequireAuth";
 import jwtDecode from "jwt-decode";
 
 const AdminDashboard = () => {
@@ -64,4 +63,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default RequireAuth(AdminDashboard);
+export default AdminDashboard;
