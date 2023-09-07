@@ -36,7 +36,7 @@ const User = ({ user }) => {
             <h3>Good Morning!</h3>
             <div className="wallet">
               <div className="balance">
-                <AiOutlineCreditCard />
+                <AiOutlineCreditCard className="icon" />
                 <div>
                   <h1>&#8358;{user.accountInfo.balance}</h1>
                   <h3>Wallet Balance</h3>
@@ -164,13 +164,19 @@ const Admin = ({ user }) => {
             <h1>Welcome, {user.userInfo.f_name}</h1>
             <h3>Good Morning!</h3>
             <div className="wallet">
-              <div>
-                <h1>&#8358;{user.accountInfo.balance}</h1>
-                <h3>Wallet Balance</h3>
+              <div className="balance">
+                <AiOutlineCreditCard className="icon" />
+                <div>
+                  <h1>&#8358;{user.accountInfo.balance}</h1>
+                  <h3>Wallet Balance</h3>
+                </div>
               </div>
-              <div>
-                <h1>N21950.45</h1>
-                <h3>API Balance</h3>
+              <div className="balance">
+                <AiOutlineCreditCard className="icon" />
+                <div>
+                  <h1>&#8358;{user.accountInfo.balance}</h1>
+                  <h3>API Balance</h3>
+                </div>
               </div>
             </div>
           </div>
