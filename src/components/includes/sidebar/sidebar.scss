@@ -3,7 +3,6 @@
   width: 22.5rem;
   height: 100vh;
   flex: 0.93;
-  z-index: 5;
   aside {
     background-color: var(--white-color);
     position: fixed;
@@ -13,6 +12,7 @@
     height: 100%;
     overflow-y: auto;
     margin-top: 3.5rem;
+    z-index: 100;
     ul {
       h1 {
         color: var(--text-gray);
