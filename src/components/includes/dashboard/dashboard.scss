@@ -108,7 +108,7 @@
       .service {
         background-color: var(--white-color);
         border-radius: 8px;
-        padding: 0.5rem;
+        padding: 0.8rem 0;
         box-shadow: #959da533 0px 8px 24px;
         &:hover {
           background-color: var(--primary-color);
@@ -140,7 +140,7 @@
       background-color: var(--white-color);
       padding: 0.5rem 1rem;
       h1 {
-        margin-bottom: 0.8rem;
+        margin-bottom: 1rem;
       }
       table {
         width: 100%;
