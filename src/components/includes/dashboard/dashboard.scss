@@ -208,10 +208,6 @@
     }
     .__container_misc {
       grid-template-columns: repeat(1, 1fr);
-      h1 {
-        font-size: 1.2rem;
-        margin-bottom: 1.5rem;
-      }
       .services {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -219,7 +215,6 @@
         .service {
           display: grid;
           place-items: center;
-          padding: 0.5rem;
           .content {
             .icon {
               background-color: #0080ff5d;
