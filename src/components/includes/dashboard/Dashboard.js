@@ -60,8 +60,10 @@ const User = ({ user }) => {
       <div className="__container_misc">
         <div className="services">
           <Link to="airtime" className="service">
-            <BsPhone className="icon" />
-            <h1>Airtime</h1>
+            <div className="content">
+              <BsPhone className="icon" />
+              <h1>Airtime</h1>
+            </div>
           </Link>
           <Link to="data" className="service">
             <AiOutlineWifi className="icon" />
