@@ -171,7 +171,13 @@ export const SidebarUser = ({ isOpen, setisOpen, sidebarRef }) => {
             </div>
           )}
           <li>
-            <NavLink to="/logout" onClick={() => setisOpen(!isOpen)}>
+            <NavLink
+              to="/"
+              onClick={() => {
+                setisOpen(!isOpen);
+                localStorage.removeItem("Token");
+              }}
+            >
               <AiOutlineLogout /> <span>Logout</span>
             </NavLink>
           </li>
@@ -339,7 +345,12 @@ export const SidebarAdmin = ({ isOpen, sidebarRef }) => {
             </div>
           )}
           <li>
-            <NavLink to="/logout">
+            <NavLink
+              to="/"
+              onClick={() => {
+                localStorage.removeItem("Token");
+              }}
+            >
               <AiOutlineLogout /> <span>Logout</span>
             </NavLink>
           </li>

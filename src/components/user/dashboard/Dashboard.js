@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./dashboard.scss";
 import Nav from "../../includes/nav/Nav";
 import { SidebarUser } from "../../includes/sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 const UserDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const token = localStorage.getItem("Token");
+  const navigate = useNavigate();
 
   const sidebarRef = useRef(null);
   const navRef = useRef(null);
@@ -26,10 +29,11 @@ const UserDashboard = () => {
   useEffect(() => {
     const decode = jwtDecode(token);
 
-    if (decode.userRole !== 2) {
+    if (!token || decode.userRole !== 2) {
       navigate("/login");
       return;
     }
+
     document.addEventListener("click", handleOutsideClick);
 
     return () => {

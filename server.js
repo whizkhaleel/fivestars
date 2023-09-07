@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const cors = require("cors");
 const path = require("path");
 const body_parser = require("body-parser");
@@ -14,9 +15,93 @@ app.use(cors());
 app.use(body_parser.json());
 
 const { MongoClient, ObjectID } = require("mongodb");
+const URI = "mongodb://localhost:27017";
 
-const URI =
-  "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
+const getMonnifyAccessToken = async () => {
+  const API_Key = "MK_TEST_ANYNZX3EVQ";
+  const Secret_Key = "TDSDUNGKU3M367PPPS9MVMHDMVV4UQ8X";
+
+  const authHeader = `Basic ${Buffer.from(API_Key + ":" + Secret_Key).toString(
+    "base64"
+  )}`;
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: authHeader,
+  };
+
+  return axios
+    .post("https://sandbox.monnify.com/api/v1/auth/login", {}, { headers })
+    .then((response) => {
+      const responseBody = response.data.responseBody;
+      const accessToken = responseBody.accessToken;
+      return accessToken;
+    })
+    .catch((error) => {
+      throw new Error("Error:", error.message);
+    });
+};
+
+const createReservedBankAccount = async (
+  accessToken,
+  ref,
+  customerName,
+  customerEmail,
+  username
+) => {
+  try {
+    const userData = {
+      accountReference: ref,
+      accountName: username,
+      currencyCode: "NGN",
+      contractCode: "8834841014",
+      customerEmail: customerEmail,
+      customerName: customerName,
+      getAllAvailableBanks: true,
+    };
+
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await axios.post(
+      "https://sandbox.monnify.com/api/v1/bank-transfer/reserved-accounts",
+      userData,
+      { headers }
+    );
+    return response.data.responseBody;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+const saveAccount = async (user_id, reservedAccount) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const collection = database.collection("user_account");
+
+    const accountInfo = {
+      user_id: user_id,
+      balance: 0,
+      total_fund: 0,
+      bank_name: reservedAccount.bankName,
+      account_number: reservedAccount.accountNumber,
+    };
+
+    return await collection.insertOne(accountInfo);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await client.close();
+  }
+};
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(buildPath, "index.html"));
@@ -59,13 +144,26 @@ app.post("/api/register", async (req, res) => {
       username: username,
       password: hashedPassword,
       salt: salt,
-      user_role: "2",
+      user_role: 2,
       date_created: Date(),
     };
 
     const result = await collection.insertOne(newUser);
 
     if (result) {
+      const accessToken = await getMonnifyAccessToken();
+      const ref = result.insertedId;
+      const reserveAccount = await createReservedBankAccount(
+        accessToken,
+        ref,
+        newUser.f_name + "" + newUser.f_name,
+        newUser.email,
+        newUser.username
+      );
+
+      saveAccount(ref, reserveAccount);
+
+      console.log(reserveAccount);
       res.status(201).json({ message: "Your registration is successful" });
     } else {
       res.status(500).json({ error: "Internal server error" });
@@ -141,18 +239,20 @@ app.post("/api/user/:userID", async (req, res) => {
   try {
     await client.connect();
     const database = client.db("vtu_db");
-    const collection = database.collection("users");
+    const users = database.collection("users");
+    const user_account = database.collection("user_account");
 
-    const user = await collection.findOne({
+    const userInfo = await users.findOne({
       _id: new ObjectId(userID),
     });
 
-    if (user) {
-      res.status(201).json({
-        user_id: user._id,
-        f_name: user.f_name,
-        l_name: user.l_name,
-      });
+    const accountInfo = await user_account.findOne({
+      user_id: new ObjectId(userID),
+    });
+
+    if (userInfo && accountInfo) {
+      const userData = { userInfo, accountInfo };
+      res.status(201).json(userData);
     } else {
       res.status(404).json({ message: "No user found" });
     }
@@ -163,6 +263,9 @@ app.post("/api/user/:userID", async (req, res) => {
     await client.close();
   }
 });
+
+app.post("/webhooks/monnify/payment", async (req, res) => {});
+app.post("/webhooks/monnify/refund", async (req, res) => {});
 
 app.set("port", 3000);
 app.listen(3000, () => {

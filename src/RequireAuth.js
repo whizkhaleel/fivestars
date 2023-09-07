@@ -14,14 +14,12 @@ const RequireAuth = (WrappedComponent) => {
 
     useEffect(() => {
       if (token === null || token === "") {
-        alert("Token null");
         navigate("/login");
       } else {
         try {
           const decodedToken = jwtDecode(token);
 
           if (Date.now() >= decodedToken.exp * 1000) {
-            alert("Token expired");
             console.log("Token expired");
             navigate("/login");
           } else {
@@ -34,13 +32,11 @@ const RequireAuth = (WrappedComponent) => {
                 setDone(true);
               })
               .catch((error) => {
-                alert("Error " + error);
                 console.error("Error fetching user details:", error);
                 navigate("/login");
               });
           }
         } catch (error) {
-          alert("Token failed");
           console.error("Token verification failed: ", error);
           navigate("/login");
         }

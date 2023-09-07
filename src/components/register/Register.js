@@ -50,7 +50,7 @@ const Register = () => {
     };
 
     axios
-      .post("https://fivestarsvtu.onrender.com/api/register", payload)
+      .post("/api/register", payload)
       .then((response) => {
         if (response.status === 201) {
           toast.success(`${response.data.message}`, {

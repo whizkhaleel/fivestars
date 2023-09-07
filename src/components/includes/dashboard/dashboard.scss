@@ -15,7 +15,7 @@
       }
     }
     .__info {
-      background-color: var(--primary-color);
+      background-color: var(--white-color);
       color: var(--white-color);
       display: flex;
       justify-content: space-between;
@@ -24,12 +24,13 @@
       .user {
         padding-top: 2rem;
         > h1 {
+          color: var(--text-color);
           font-size: 1.4rem;
           font-weight: 600;
         }
         > h3 {
           font-size: 1.1rem;
-          color: var(--bg-color);
+          color: var(--text-gray);
         }
         .wallet {
           display: grid;
@@ -37,19 +38,27 @@
           grid-gap: 2rem;
           margin-top: 2rem;
           h1 {
+            color: var(--text-color);
             font-size: 1.6rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
           }
           h3 {
-            color: var(--bg-color);
+            color: var(--text-gray);
             font-size: 1.1rem;
           }
         }
       }
       .misc {
         a {
+          background-color: var(--primary-color);
+          color: var(--white-color);
           font-size: 0.9rem;
+          &:hover {
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+          }
         }
       }
     }
@@ -80,7 +89,7 @@
   }
   .__container_misc {
     display: grid;
-    grid-template-columns: 23% 74.5%;
+    grid-template-columns: 21% 74.5%;
     gap: 0.5rem;
     border-radius: 4px;
     margin-top: 1rem;
@@ -93,15 +102,18 @@
       margin-bottom: 0.5rem;
     }
     .services {
-      background-color: var(--white-color);
-      padding: 0.5rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
       .service {
-        display: grid;
-        place-items: center;
+        background-color: var(--white-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         gap: 0.5rem;
-        margin: 0.5rem auto;
-        border-radius: 5px;
-        padding: 0.6rem;
+        border-radius: 8px;
+        padding: 0.5rem;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         &:hover {
           background-color: var(--primary-color);
@@ -111,8 +123,8 @@
           }
         }
         .icon {
-          width: 1.8rem;
-          height: 1.5rem;
+          width: 2rem;
+          height: 2rem;
         }
         h1 {
           color: var(--text-color);
@@ -197,14 +209,20 @@
         margin-bottom: 1.5rem;
       }
       .services {
+        display: grid;
+        grid-template-columns: repeat(3, 2fr);
+        margin: 0.5rem 0;
+        .hide {
+          display: none;
+        }
         .service {
-          padding: 0.8rem;
+          padding: 0.7rem 0.5rem;
           .icon {
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 2.1rem;
+            height: 2.1rem;
           }
           h1 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
           }
         }
       }

@@ -19,7 +19,9 @@ import RequireAuth from "../../../RequireAuth";
 
 const User = ({ user }) => {
   useEffect(() => {
-    return () => {};
+    $(document).ready(() => {
+      $("#transactions").DataTable();
+    });
   }, []);
 
   return (
@@ -31,11 +33,11 @@ const User = ({ user }) => {
       <div className="__account">
         <div className="__info">
           <div className="user">
-            <h1>Welcome, {user.f_name}</h1>
+            <h1>Welcome, {user.userInfo.f_name}</h1>
             <h3>Good Morning!</h3>
             <div className="wallet">
               <div>
-                <h1>N950.45</h1>
+                <h1>&#8358;{user.accountInfo.balance}</h1>
                 <h3>Wallet Balance</h3>
               </div>
             </div>
@@ -57,22 +59,19 @@ const User = ({ user }) => {
       </div>
       <div className="__container_misc">
         <div className="services">
-          <h1>
-            <AiOutlineLink /> Quick Links
-          </h1>
           <Link to="airtime" className="service">
             <BsPhone className="icon" />
-            <h1>Buy Airtime</h1>
+            <h1>Airtime</h1>
           </Link>
           <Link to="data" className="service">
             <AiOutlineWifi className="icon" />
-            <h1>Buy Data</h1>
+            <h1>Data</h1>
           </Link>
           <Link to="datacard" className="service">
             <AiOutlineCreditCard className="icon" />
-            <h1>Buy Data E-PIN</h1>
+            <h1>Data PIN</h1>
           </Link>
-          <Link to="convert" className="service">
+          <Link to="convert" className="service hide">
             <TbCash className="icon" />
             <h1>Convert Airtime</h1>
           </Link>
@@ -152,11 +151,11 @@ const Admin = ({ user }) => {
       <div className="__account">
         <div className="__info">
           <div className="user">
-            <h1>Welcome, {user.f_name}</h1>
+            <h1>Welcome, {user.userInfo.f_name}</h1>
             <h3>Good Morning!</h3>
             <div className="wallet">
               <div>
-                <h1>N950.45</h1>
+                <h1>&#8358;{user.accountInfo.balance}</h1>
                 <h3>Wallet Balance</h3>
               </div>
               <div>
@@ -182,22 +181,19 @@ const Admin = ({ user }) => {
       </div>
       <div className="__container_misc">
         <div className="services">
-          <h1>
-            <AiOutlineLink /> Quick Links
-          </h1>
           <Link to="airtime" className="service">
             <BsPhone className="icon" />
-            <h1>Buy Airtime</h1>
+            <h1>Airtime</h1>
           </Link>
           <Link to="data" className="service">
             <AiOutlineWifi className="icon" />
-            <h1>Buy Data</h1>
+            <h1>Data</h1>
           </Link>
           <Link to="datacard" className="service">
             <AiOutlineCreditCard className="icon" />
-            <h1>Buy Data E-PIN</h1>
+            <h1>Data PIN</h1>
           </Link>
-          <Link to="convert" className="service">
+          <Link to="convert" className="service hide">
             <TbCash className="icon" />
             <h1>Convert Airtime</h1>
           </Link>

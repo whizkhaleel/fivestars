@@ -29,7 +29,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const decode = jwtDecode(token);
 
-    if (decode.userRole !== 1) {
+    if (!token || decode.userRole !== 1) {
       navigate("/login");
       return;
     }
