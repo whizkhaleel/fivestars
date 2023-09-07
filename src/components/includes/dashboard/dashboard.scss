@@ -211,12 +211,10 @@
         display: grid;
         grid-template-columns: repeat(3, 2fr);
         margin: 0.5rem 0;
-        .hide {
-          display: none;
-        }
         .service {
           display: grid;
           place-items: center;
+<<<<<<< HEAD
           padding: 1rem;
           .content {
             display: flex;
@@ -225,6 +223,12 @@
             justify-content: center;
             align-items: center;
           }
+=======
+          grid-gap: 0.5rem;
+          &.hide {
+          display: none;
+        }
+>>>>>>> a4e19fe00db75ade4c4bd8809b178318eef0e62a
           .icon {
             background-color: rgba(5, 130, 255, 0.2);
             border-radius: 50%;
