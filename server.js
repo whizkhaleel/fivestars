@@ -15,7 +15,7 @@ app.use(cors());
 app.use(body_parser.json());
 
 const { MongoClient, ObjectID } = require("mongodb");
-const URI = "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
+const URI = "mongodb://localhost:27017";
 
 const getMonnifyAccessToken = async () => {
   const API_Key = "MK_TEST_ANYNZX3EVQ";

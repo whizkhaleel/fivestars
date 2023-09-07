@@ -122,12 +122,22 @@
             color: var(--white-color);
           }
         }
-        .icon {
-          font-size: 2rem;
-        }
-        h1 {
-          color: var(--text-color);
-          font-size: 1rem;
+        .content {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          justify-content: center;
+          align-items: center;
+          .icon {
+            background-color: #0080ff69;
+            border-radius: 50%;
+            padding: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+          }
+          h1 {
+            font-size: 1.1rem;
+          }
         }
       }
     }
@@ -209,31 +219,16 @@
       }
       .services {
         display: grid;
-        grid-template-columns: repeat(3, 2fr);
+        grid-template-columns: repeat(3, 1fr);
         margin: 0.5rem 0;
         .service {
           display: grid;
           place-items: center;
-          padding: 1rem;
-          .content {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            justify-content: center;
-            align-items: center;
-          }
+          padding: 0.5rem;
+
           grid-gap: 0.5rem;
           &.hide {
             display: none;
-          }
-          .icon {
-            background-color: rgba(5, 130, 255, 0.2);
-            border-radius: 50%;
-            padding: 0.5rem;
-            font-size: 1rem;
-          }
-          h1 {
-            font-size: 1.1rem;
           }
         }
       }

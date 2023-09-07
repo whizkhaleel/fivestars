@@ -66,16 +66,22 @@ const User = ({ user }) => {
             </div>
           </Link>
           <Link to="data" className="service">
-            <AiOutlineWifi className="icon" />
-            <h1>Data</h1>
+            <div className="content">
+              <AiOutlineWifi className="icon" />
+              <h1>Data</h1>
+            </div>
           </Link>
           <Link to="datacard" className="service">
-            <AiOutlineCreditCard className="icon" />
-            <h1>Data PIN</h1>
+            <div className="content">
+              <AiOutlineCreditCard className="icon" />
+              <h1>Data PIN</h1>
+            </div>
           </Link>
           <Link to="convert" className="service hide">
-            <TbCash className="icon" />
-            <h1>Convert Airtime</h1>
+            <div className="content">
+              <TbCash className="icon" />
+              <h1>Convert Airtime</h1>
+            </div>
           </Link>
         </div>
         <div className="transactions">
