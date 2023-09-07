@@ -124,7 +124,7 @@
           justify-content: center;
           align-items: center;
           .icon {
-            background-color: #0080ff69;
+            background-color: #0080ff49;
             border-radius: 50%;
             padding: 0.7rem;
             width: 2.5rem;
@@ -140,7 +140,7 @@
       background-color: var(--white-color);
       padding: 0.5rem 1rem;
       h1 {
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
       }
       table {
         width: 100%;
@@ -221,6 +221,8 @@
           .content {
             .icon {
               background-color: #0080ff5d;
+              width: 2.7rem;
+              height: 2.7rem;
             }
             h1 {
               font-size: 1rem;
