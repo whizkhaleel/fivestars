@@ -7,7 +7,6 @@ import { BsPhone } from "react-icons/bs";
 import { TbCash } from "react-icons/tb";
 import {
   AiOutlineWifi,
-  AiOutlineLink,
   AiOutlineCreditCard,
   AiOutlineHistory,
 } from "react-icons/ai";
@@ -36,9 +35,12 @@ const User = ({ user }) => {
             <h1>Welcome, {user.userInfo.f_name}</h1>
             <h3>Good Morning!</h3>
             <div className="wallet">
-              <div>
-                <h1>&#8358;{user.accountInfo.balance}</h1>
-                <h3>Wallet Balance</h3>
+              <div className="balance">
+                <AiOutlineCreditCard />
+                <div>
+                  <h1>&#8358;{user.accountInfo.balance}</h1>
+                  <h3>Wallet Balance</h3>
+                </div>
               </div>
             </div>
           </div>

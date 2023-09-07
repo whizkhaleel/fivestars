@@ -38,6 +38,10 @@
           grid-template-columns: repeat(2, 1fr);
           grid-gap: 2rem;
           margin-top: 2rem;
+          .balance {
+            display: flex;
+            align-items: center;
+          }
           h1 {
             color: var(--text-color);
             font-size: 1.6rem;
