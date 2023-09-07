@@ -212,7 +212,7 @@
         grid-template-columns: repeat(3, 2fr);
         margin: 0.5rem 0;
         .hide {
-          display: none;
+          display: none !mportant;
         }
         .service {
           display: grid;
