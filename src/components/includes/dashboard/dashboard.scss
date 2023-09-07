@@ -21,6 +21,7 @@
       justify-content: space-between;
       padding: 1rem 1.5rem;
       border-radius: 4px;
+      box-shadow: #959da533 0px 8px 24px;
       .user {
         padding-top: 2rem;
         > h1 {
@@ -97,9 +98,8 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: rgb(75, 75, 75);
+      color: #4b4b4b;
       font-size: 1.15rem;
-      margin-bottom: 0.5rem;
     }
     .services {
       display: flex;
@@ -107,14 +107,9 @@
       gap: 0.5rem;
       .service {
         background-color: var(--white-color);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
         border-radius: 8px;
         padding: 0.5rem;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        box-shadow: #959da533 0px 8px 24px;
         &:hover {
           background-color: var(--primary-color);
           color: var(--white-color);
@@ -131,9 +126,9 @@
           .icon {
             background-color: #0080ff69;
             border-radius: 50%;
-            padding: 0.5rem;
-            width: 2rem;
-            height: 2rem;
+            padding: 0.7rem;
+            width: 2.5rem;
+            height: 2.5rem;
           }
           h1 {
             font-size: 1.1rem;
@@ -225,8 +220,14 @@
           display: grid;
           place-items: center;
           padding: 0.5rem;
-
-          grid-gap: 0.5rem;
+          .content {
+            .icon {
+              background-color: #0080ff5d;
+            }
+            h1 {
+              font-size: 1rem;
+            }
+          }
           &.hide {
             display: none;
           }
