@@ -34,12 +34,12 @@
           align-items: center;
           padding: 0.7rem;
           &:hover {
-            background-color: rgba($color: #6f3df4, $alpha: 0.1);
+            background-color: #0080ff49;
             color: var(--primary-color);
             border-radius: 2px;
           }
           &.active {
-            background-color: rgba($color: #6f3df4, $alpha: 0.2);
+            background-color: #0080ff49;
             color: var(--primary-color);
             border-left: 4px solid var(--primary-color);
             border-radius: 2px;
