@@ -10,18 +10,102 @@ import {
   AiOutlineCreditCard,
   AiOutlineHistory,
 } from "react-icons/ai";
-import "jquery/dist/jquery.min.js";
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+import Table from "../Table";
+// import "jquery/dist/jquery.min.js";
+// import $ from "jquery";
+// import "datatables.net-dt/js/dataTables.dataTables";
+// import "datatables.net-dt/css/jquery.dataTables.min.css";
 import RequireAuth from "../../../RequireAuth";
+import { SlWallet } from "react-icons/sl";
 
 const User = ({ user }) => {
   useEffect(() => {
-    $(document).ready(() => {
-      $("#transactions").DataTable();
-    });
+    // $(document).ready(() => {
+    //   $("#transactions").DataTable();
+    // });
   }, []);
+
+  const columns = [
+    {
+      transID: "Transaction ID",
+      selector: (row) => row.transID,
+    },
+    {
+      trans: "Transaction",
+      selector: (row) => row.trans,
+    },
+    {
+      prevBal: "Prev. Balance",
+      selector: (row) => row.prevBal,
+    },
+    {
+      newBal: "New Balancd",
+      selector: (row) => row.newBal,
+    },
+    {
+      time: "Date / Time",
+      selector: (row) => row.time,
+    },
+  ];
+
+  const data = [
+    {
+      id: 1,
+      transID: "25223572657",
+      trans: "N1020 Airtime",
+      prevBal: "N3201",
+      newBal: "N1981",
+      time: "September, 09/09/2023 08:35PM",
+    },
+    {
+      id: 2,
+      transID: "25223572657",
+      trans: "N1020 Airtime",
+      prevBal: "N3201",
+      newBal: "N1981",
+      time: "September, 09/09/2023 08:35PM",
+    },
+    {
+      id: 3,
+      transID: "25223572657",
+      trans: "N1020 Airtime",
+      prevBal: "N3201",
+      newBal: "N1981",
+      time: "September, 09/09/2023 08:35PM",
+    },
+    {
+      id: 4,
+      transID: "25223572657",
+      trans: "N1020 Airtime",
+      prevBal: "N3201",
+      newBal: "N1981",
+      time: "September, 09/09/2023 08:35PM",
+    },
+    {
+      id: 5,
+      transID: "25223572657",
+      trans: "N1020 Airtime",
+      prevBal: "N3201",
+      newBal: "N1981",
+      time: "September, 09/09/2023 08:35PM",
+    },
+    {
+      id: 6,
+      transID: "25223572657",
+      trans: "N1020 Airtime",
+      prevBal: "N3201",
+      newBal: "N1981",
+      time: "September, 09/09/2023 08:35PM",
+    },
+    {
+      id: 7,
+      transID: "25223572657",
+      trans: "N1020 Airtime",
+      prevBal: "N3201",
+      newBal: "N1981",
+      time: "September, 09/09/2023 08:35PM",
+    },
+  ];
 
   return (
     <div className="__main">
@@ -36,7 +120,7 @@ const User = ({ user }) => {
             <h3>Good Morning!</h3>
             <div className="wallet">
               <div className="balance">
-                <AiOutlineCreditCard className="icon" />
+                <SlWallet className="icon" />
                 <div>
                   <h1>&#8358;{user.accountInfo.balance}</h1>
                   <h3>Wallet Balance</h3>
@@ -90,7 +174,8 @@ const User = ({ user }) => {
           <h1>
             <AiOutlineHistory /> Recent Transactions
           </h1>
-          <div className="table">
+          <Table columns={columns} data={data} />
+          {/* <div className="table">
             <table id="transactions">
               <thead>
                 <tr>
@@ -139,7 +224,7 @@ const User = ({ user }) => {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -148,9 +233,9 @@ const User = ({ user }) => {
 
 const Admin = ({ user }) => {
   useEffect(() => {
-    $(document).ready(() => {
-      $("#transactions").DataTable();
-    });
+    // $(document).ready(() => {
+    //   $("#transactions").DataTable();
+    // });
   }, []);
   return (
     <div className="__main">
@@ -165,7 +250,7 @@ const Admin = ({ user }) => {
             <h3>Good Morning!</h3>
             <div className="wallet">
               <div className="balance">
-                <AiOutlineCreditCard className="icon" />
+                <SlWallet className="icon" />
                 <div>
                   <h1>&#8358;{user.accountInfo.balance}</h1>
                   <h3>Wallet Balance</h3>
@@ -219,8 +304,8 @@ const Admin = ({ user }) => {
             <AiOutlineHistory /> Recent Transactions
           </h1>
           <div className="table">
-            <table id="transactions">
-              <thead>
+            {/*<table id="transactions">
+               <thead>
                 <tr>
                   <th>Transaction ID</th>
                   <th>Transaction</th>
@@ -266,7 +351,7 @@ const Admin = ({ user }) => {
                   <td>21/07/2023 / 10:32AM</td>
                 </tr>
               </tbody>
-            </table>
+            </table> */}
           </div>
         </div>
       </div>

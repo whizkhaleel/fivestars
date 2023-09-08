@@ -15,7 +15,7 @@
       border-spacing: 0;
       border: 1px solid #ddd;
       padding: 0.5rem;
-      tr {
+      .rdt_TableRow {
         &:nth-child(even) {
           background-color: #f2f2f2;
         }
@@ -35,7 +35,7 @@
           }
         }
       }
-      th {
+      .rdt_TableHead {
         background-color: #f2f2f2;
       }
       td,
@@ -74,4 +74,42 @@
       }
     }
   }
+}
+
+/* YourTableStyles.css */
+
+/* Style the table header */
+.rdt_TableHead {
+  background-color: #f0f0f0;
+}
+
+/* Style the table header cells */
+.rdt_TableHeadRow {
+  font-weight: bold;
+}
+
+/* Style the table rows */
+.rdt_TableRow {
+  background-color: #f2f2f2;
+  padding: 0.5rem;
+  text-align: left;
+  width: 30px;
+  white-space: nowrap;
+}
+
+/* Style the table cell */
+.rdt_TableCell {
+  padding: 0.5rem;
+  text-align: left;
+  width: 30px;
+  white-space: nowrap;
+}
+
+/* Style even rows differently */
+.rdt_TableRow:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.rdt_TableRow:hover {
+  background-color: #f2f2f2;
 }

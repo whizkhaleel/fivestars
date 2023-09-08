@@ -9,7 +9,12 @@ const Nav = ({ isOpen, setIsOpen, navRef }) => {
     <nav className="nav">
       <div className="nav__left">
         <div className="hamburger" ref={navRef}>
-          <Hamburger className="icon" toggled={isOpen} toggle={setIsOpen} />
+          <Hamburger
+            className="icon"
+            toggled={isOpen}
+            toggle={setIsOpen}
+            aria-label="hamburger"
+          />
         </div>
         <div className="nav__logo">
           <img src={logo} alt="" />

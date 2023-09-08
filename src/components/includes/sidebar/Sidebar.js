@@ -51,8 +51,8 @@ export const SidebarUser = ({ isOpen, setisOpen, sidebarRef }) => {
           </li>
         </ul>
 
+        <h1>Transactions</h1>
         <ul>
-          <h1>Transactions</h1>
           <li>
             <NavLink to="data" onClick={() => setisOpen(!isOpen)}>
               <AiOutlineWifi /> <span>Buy Data</span>
@@ -85,8 +85,8 @@ export const SidebarUser = ({ isOpen, setisOpen, sidebarRef }) => {
           </li>
           <li onClick={toggleHistory}>
             <Link style={{ backgroundColor: "inherit" }}>
-              <AiOutlineHistory style={{ color: "GrayText" }} />{" "}
-              <span>Transactions History</span>{" "}
+              <AiOutlineHistory style={{ color: "GrayText" }} />
+              <span>Transactions History</span>
               <BsChevronCompactDown
                 style={{
                   transform: isHistoryOpen ? "rotate(180deg)" : "",
@@ -137,11 +137,12 @@ export const SidebarUser = ({ isOpen, setisOpen, sidebarRef }) => {
             </div>
           )}
         </ul>
+
+        <h1>Miscellaneous</h1>
         <ul className="misc">
-          <h1>Miscellaneous</h1>
           <li onClick={toggleSettings}>
             <Link style={{ backgroundColor: "inherit" }}>
-              <AiOutlineSetting style={{ color: "GrayText" }} />{" "}
+              <AiOutlineSetting style={{ color: "GrayText" }} />
               <span>Settings</span>{" "}
               <BsChevronCompactDown
                 style={{
@@ -221,8 +222,8 @@ export const SidebarAdmin = ({ isOpen, sidebarRef }) => {
           </li>
         </ul>
 
+        <h1>Transactions</h1>
         <ul>
-          <h1>Transactions</h1>
           <li>
             <NavLink to="data">
               <AiOutlineWifi /> <span>Buy Data</span>
@@ -305,8 +306,8 @@ export const SidebarAdmin = ({ isOpen, sidebarRef }) => {
           )}
         </ul>
 
+        <h1>Miscellaneous</h1>
         <ul className="misc">
-          <h1>Miscellaneous</h1>
           <li onClick={toggleSettings}>
             <Link style={{ backgroundColor: "inherit" }}>
               <AiOutlineSetting style={{ color: "GrayText" }} />{" "}
