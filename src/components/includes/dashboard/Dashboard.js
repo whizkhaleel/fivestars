@@ -11,39 +11,31 @@ import {
   AiOutlineHistory,
 } from "react-icons/ai";
 import Table from "../Table";
-// import "jquery/dist/jquery.min.js";
-// import $ from "jquery";
-// import "datatables.net-dt/js/dataTables.dataTables";
-// import "datatables.net-dt/css/jquery.dataTables.min.css";
 import RequireAuth from "../../../RequireAuth";
 import { SlWallet } from "react-icons/sl";
 
 const User = ({ user }) => {
-  useEffect(() => {
-    // $(document).ready(() => {
-    //   $("#transactions").DataTable();
-    // });
-  }, []);
+  useEffect(() => {}, []);
 
   const columns = [
     {
-      transID: "Transaction ID",
-      selector: (row) => row.transID,
+      name: "Transaction ID",
+      selector: (row) => row.ref,
     },
     {
-      trans: "Transaction",
-      selector: (row) => row.trans,
+      name: "Transaction",
+      selector: (row) => row.type,
     },
     {
-      prevBal: "Prev. Balance",
-      selector: (row) => row.prevBal,
+      name: "Prev. Balance",
+      selector: (row) => row.prev,
     },
     {
-      newBal: "New Balancd",
-      selector: (row) => row.newBal,
+      name: "New Balance",
+      selector: (row) => row.new,
     },
     {
-      time: "Date / Time",
+      name: "Date / Time",
       selector: (row) => row.time,
     },
   ];
@@ -51,59 +43,43 @@ const User = ({ user }) => {
   const data = [
     {
       id: 1,
-      transID: "25223572657",
-      trans: "N1020 Airtime",
-      prevBal: "N3201",
-      newBal: "N1981",
-      time: "September, 09/09/2023 08:35PM",
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
     },
     {
       id: 2,
-      transID: "25223572657",
-      trans: "N1020 Airtime",
-      prevBal: "N3201",
-      newBal: "N1981",
-      time: "September, 09/09/2023 08:35PM",
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
     },
     {
       id: 3,
-      transID: "25223572657",
-      trans: "N1020 Airtime",
-      prevBal: "N3201",
-      newBal: "N1981",
-      time: "September, 09/09/2023 08:35PM",
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
     },
     {
       id: 4,
-      transID: "25223572657",
-      trans: "N1020 Airtime",
-      prevBal: "N3201",
-      newBal: "N1981",
-      time: "September, 09/09/2023 08:35PM",
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
     },
     {
       id: 5,
-      transID: "25223572657",
-      trans: "N1020 Airtime",
-      prevBal: "N3201",
-      newBal: "N1981",
-      time: "September, 09/09/2023 08:35PM",
-    },
-    {
-      id: 6,
-      transID: "25223572657",
-      trans: "N1020 Airtime",
-      prevBal: "N3201",
-      newBal: "N1981",
-      time: "September, 09/09/2023 08:35PM",
-    },
-    {
-      id: 7,
-      transID: "25223572657",
-      trans: "N1020 Airtime",
-      prevBal: "N3201",
-      newBal: "N1981",
-      time: "September, 09/09/2023 08:35PM",
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
     },
   ];
 
@@ -174,57 +150,9 @@ const User = ({ user }) => {
           <h1>
             <AiOutlineHistory /> Recent Transactions
           </h1>
-          <Table columns={columns} data={data} />
-          {/* <div className="table">
-            <table id="transactions">
-              <thead>
-                <tr>
-                  <th>Transaction ID</th>
-                  <th>Transaction</th>
-                  <th>Prev. Balance</th>
-                  <th>New Balance</th>
-                  <th>Date / Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>N1020 Airtime</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>1GB MTN Data</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>N500 Wallet Funding</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>5G Airtel Data</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>Airtime</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-              </tbody>
-            </table>
-          </div> */}
+          <div className="table">
+            <Table columns={columns} data={data} />
+          </div>
         </div>
       </div>
     </div>
@@ -232,11 +160,72 @@ const User = ({ user }) => {
 };
 
 const Admin = ({ user }) => {
-  useEffect(() => {
-    // $(document).ready(() => {
-    //   $("#transactions").DataTable();
-    // });
-  }, []);
+  useEffect(() => {}, []);
+  const columns = [
+    {
+      name: "Transaction ID",
+      selector: (row) => row.ref,
+    },
+    {
+      name: "Transaction",
+      selector: (row) => row.type,
+    },
+    {
+      name: "Prev. Balance",
+      selector: (row) => row.prev,
+    },
+    {
+      name: "New Balance",
+      selector: (row) => row.new,
+    },
+    {
+      name: "Date / Time",
+      selector: (row) => row.time,
+    },
+  ];
+
+  const data = [
+    {
+      id: 1,
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
+    },
+    {
+      id: 2,
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
+    },
+    {
+      id: 3,
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
+    },
+    {
+      id: 4,
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
+    },
+    {
+      id: 5,
+      ref: "25223572657",
+      type: "N250 MTN Airtime",
+      prev: "N3000.43",
+      new: "N2750.43",
+      time: "September 9, 2023 08:32AM",
+    },
+  ];
   return (
     <div className="__main">
       <div className="breadcrumb">
@@ -304,54 +293,7 @@ const Admin = ({ user }) => {
             <AiOutlineHistory /> Recent Transactions
           </h1>
           <div className="table">
-            {/*<table id="transactions">
-               <thead>
-                <tr>
-                  <th>Transaction ID</th>
-                  <th>Transaction</th>
-                  <th>Prev. Balance</th>
-                  <th>New Balance</th>
-                  <th>Date / Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>N1020 Airtime</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>1GB MTN Data</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>N500 Wallet Funding</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>5G Airtel Data</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-                <tr>
-                  <td>FSD-25223572657</td>
-                  <td>Airtime</td>
-                  <td>N3645.5</td>
-                  <td>N3245.5</td>
-                  <td>21/07/2023 / 10:32AM</td>
-                </tr>
-              </tbody>
-            </table> */}
+            <Table columns={columns} data={data} />
           </div>
         </div>
       </div>

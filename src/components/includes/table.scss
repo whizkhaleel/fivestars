@@ -7,46 +7,48 @@
       font-size: 1.2rem;
     }
   }
-  .table_wrapper {
-    table {
-      width: 100%;
-      font-size: 1rem;
-      border-collapse: collapse;
-      border-spacing: 0;
-      border: 1px solid #ddd;
-      padding: 0.5rem;
-      .rdt_TableRow {
-        &:nth-child(even) {
-          background-color: #f2f2f2;
-        }
-        &:hover {
-          background-color: #f2f2f2;
-        }
-        .btns {
-          display: flex;
-          gap: 0.5rem;
-          .view {
-            background-color: #008000;
-            color: var(--white-color);
-            font-size: 1.2rem;
-            padding: 0.1rem 0.4rem;
-            font-weight: 600;
-            border-radius: 4px;
-          }
-        }
-      }
-      .rdt_TableHead {
-        background-color: #f2f2f2;
-      }
-      td,
-      th {
-        padding: 1rem;
-        text-align: left;
-        width: 30px;
-        white-space: nowrap;
-      }
+  .btns {
+    display: flex;
+    gap: 0.5rem;
+    .view {
+      background-color: #008000;
+      color: var(--white-color);
+      font-size: 1.2rem;
+      padding: 0.1rem 0.4rem;
+      font-weight: 600;
+      border-radius: 4px;
     }
   }
+}
+
+.rdt_TableHead {
+  background-color: #f2f2f2;
+}
+
+.rdt_TableHeadRow {
+  font-weight: 600;
+}
+
+.rdt_TableRow {
+  padding: 0.5rem;
+  text-align: left;
+  width: 30px;
+  white-space: nowrap;
+}
+
+.rdt_TableCell {
+  padding: 0.5rem;
+  text-align: left;
+  width: 30px;
+  white-space: nowrap;
+}
+
+.rdt_TableRow:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.rdt_TableRow:hover {
+  background-color: #f2f2f2;
 }
 
 @media screen and (max-width: 769px) {
@@ -60,56 +62,5 @@
       align-items: center;
       padding: 1rem;
     }
-    .table_wrapper {
-      width: 20rem;
-      overflow: hidden;
-      .table {
-        overflow-x: auto;
-        table {
-          td,
-          th {
-            padding: 0.7rem;
-          }
-        }
-      }
-    }
   }
-}
-
-/* YourTableStyles.css */
-
-/* Style the table header */
-.rdt_TableHead {
-  background-color: #f0f0f0;
-}
-
-/* Style the table header cells */
-.rdt_TableHeadRow {
-  font-weight: bold;
-}
-
-/* Style the table rows */
-.rdt_TableRow {
-  background-color: #f2f2f2;
-  padding: 0.5rem;
-  text-align: left;
-  width: 30px;
-  white-space: nowrap;
-}
-
-/* Style the table cell */
-.rdt_TableCell {
-  padding: 0.5rem;
-  text-align: left;
-  width: 30px;
-  white-space: nowrap;
-}
-
-/* Style even rows differently */
-.rdt_TableRow:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.rdt_TableRow:hover {
-  background-color: #f2f2f2;
 }
