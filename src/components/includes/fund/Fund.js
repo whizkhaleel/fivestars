@@ -32,8 +32,6 @@ const Fund = () => {
     document.title = "FiveStarsData | Fund Wallet";
   }, [token]);
 
-  console.log(accountInfo);
-
   return (
     <>
       {isLoading === false ? (
