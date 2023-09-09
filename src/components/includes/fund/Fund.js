@@ -24,8 +24,7 @@ const Fund = () => {
       .then((response) => {
         const accInfo = response.data;
         setAccountInfo(accInfo);
-        setDone(True);
-        set;
+        setDone(true);
       })
       .catch((error) => {
         console.error("Error fetching user account details:", error);
