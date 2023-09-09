@@ -16,11 +16,14 @@ app.use(body_parser.json());
 
 const { MongoClient, ObjectID } = require("mongodb");
 const URI =
-  "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://fivestarsds:<password>@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
+
+const contractCode = "677548149066";
+const API_URL = "https://api.monnify.com";
 
 const getMonnifyAccessToken = async () => {
-  const API_Key = "MK_TEST_ANYNZX3EVQ";
-  const Secret_Key = "TDSDUNGKU3M367PPPS9MVMHDMVV4UQ8X";
+  const API_Key = "MK_PROD_45A2V7WMZZ";
+  const Secret_Key = "KKYAT9AV1WMUFCGT4034BAKWC578CYU7";
 
   const authHeader = `Basic ${Buffer.from(API_Key + ":" + Secret_Key).toString(
     "base64"
@@ -55,7 +58,7 @@ const createReservedBankAccount = async (
       accountReference: ref,
       accountName: username,
       currencyCode: "NGN",
-      contractCode: "8834841014",
+      contractCode: contractCode,
       customerEmail: customerEmail,
       customerName: customerName,
       getAllAvailableBanks: true,
@@ -67,7 +70,7 @@ const createReservedBankAccount = async (
     };
 
     const response = await axios.post(
-      "https://sandbox.monnify.com/api/v1/bank-transfer/reserved-accounts",
+      `${API_URL}/api/v2/bank-transfer/reserved-accounts`,
       userData,
       { headers }
     );
@@ -90,10 +93,14 @@ const saveAccount = async (user_id, reservedAccount) => {
 
     const accountInfo = {
       user_id: user_id,
-      balance: 0,
-      total_fund: 0,
-      bank_name: reservedAccount.bankName,
-      account_number: reservedAccount.accountNumber,
+      balance: 0.0,
+      total_fund: 0.0,
+      wema_bank: reservedAccount.accounts[0].bankName,
+      account_number: reservedAccount.accounts[0].accountNumber,
+      sterling_bank: reservedAccount.accounts[1].bankName,
+      account_number: reservedAccount.accounts[1].accountNumber,
+      moniepoint_mfb: reservedAccount.accounts[2].bankName,
+      account_number: reservedAccount.accounts[2].accountNumber,
     };
 
     return await collection.insertOne(accountInfo);
