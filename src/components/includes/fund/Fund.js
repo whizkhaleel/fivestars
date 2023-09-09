@@ -9,22 +9,26 @@ import { useState } from "react";
 
 const Fund = () => {
   const token = localStorage.getItem("Token");
-  const [accountInfo, setInfo] = useState(null);
-  useEffect(() => {
-    const decodedToken = jwtDecode(token);
-    const userID = decodedToken.userID;
+  const [accountInfo, setAccountInfo] = useState(null);
 
-    axios
-      .post(`/api/user/wallet/${userID}`)
-      .then((response) => {
-        const accountInfo = response.data;
-        setInfo(accountInfo);
-      })
-      .catch((error) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const decodedToken = jwtDecode(token);
+        const userID = decodedToken.userID;
+
+        const response = await axios.post(`/api/user/wallet/${userID}`);
+
+        setAccountInfo(response.data);
+
+        document.title = "FiveStarsData | Fund Wallet";
+      } catch (error) {
         console.error("Error fetching user account details:", error);
-      });
-    document.title = "FiveStarsData | Fund Wallet";
-  }, []);
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   return (
     <div className="__main">
