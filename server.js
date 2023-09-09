@@ -16,7 +16,7 @@ app.use(body_parser.json());
 
 const { MongoClient, ObjectID } = require("mongodb");
 const URI =
-  "mongodb+srv://fivestarsds:<password>@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
 
 const contractCode = "677548149066";
 const API_URL = "https://api.monnify.com";
@@ -51,12 +51,12 @@ const createReservedBankAccount = async (
   ref,
   customerName,
   customerEmail,
-  username
+  accountName
 ) => {
   try {
     const userData = {
       accountReference: ref,
-      accountName: username,
+      accountName: accountName,
       currencyCode: "NGN",
       contractCode: contractCode,
       customerEmail: customerEmail,
@@ -93,14 +93,12 @@ const saveAccount = async (user_id, reservedAccount) => {
 
     const accountInfo = {
       user_id: user_id,
+      account_name: reservedAccount.accounts[0].accountName,
       balance: 0.0,
       total_fund: 0.0,
-      wema_bank: reservedAccount.accounts[0].bankName,
-      account_number: reservedAccount.accounts[0].accountNumber,
-      sterling_bank: reservedAccount.accounts[1].bankName,
-      account_number: reservedAccount.accounts[1].accountNumber,
-      moniepoint_mfb: reservedAccount.accounts[2].bankName,
-      account_number: reservedAccount.accounts[2].accountNumber,
+      wema_bank: reservedAccount.accounts[0].accountNumber,
+      sterling_bank: reservedAccount.accounts[1].accountNumber,
+      moniepoint_mfb: reservedAccount.accounts[2].accountNumber,
     };
 
     return await collection.insertOne(accountInfo);
@@ -164,14 +162,13 @@ app.post("/api/register", async (req, res) => {
       const reserveAccount = await createReservedBankAccount(
         accessToken,
         ref,
-        newUser.f_name + "" + newUser.f_name,
+        newUser.f_name + " " + newUser.l_name,
         newUser.email,
-        newUser.username
+        newUser.f_name
       );
 
       saveAccount(ref, reserveAccount);
 
-      console.log(reserveAccount);
       res.status(201).json({ message: "Your registration is successful" });
     } else {
       res.status(500).json({ error: "Internal server error" });
@@ -263,6 +260,36 @@ app.post("/api/user/:userID", async (req, res) => {
       res.status(201).json(userData);
     } else {
       res.status(404).json({ message: "No user found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await client.close();
+  }
+});
+
+app.post("/api/user/wallet/:userID", async (req, res) => {
+  const userID = req.params.userID;
+
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const user_account = database.collection("user_account");
+
+    const accountInfo = await user_account.findOne({
+      user_id: new ObjectId(userID),
+    });
+
+    if (accountInfo) {
+      res.status(201).json(accountInfo);
+    } else {
+      res.status(404).json({ message: "No user account found" });
     }
   } catch (err) {
     console.error(err);

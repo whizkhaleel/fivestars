@@ -3,11 +3,29 @@ import "../panel.scss";
 import "./fund.scss";
 import { useEffect } from "react";
 import { MdContentCopy } from "react-icons/md";
+import axios from "axios";
+import jwtDecode from "jwt-decode";
+import { useState } from "react";
 
 const Fund = () => {
+  const token = localStorage.getItem("Token");
+  const [accountInfo, setInfo] = useState(null);
   useEffect(() => {
-    document.title = "FiveStarsData | Login";
+    const decodedToken = jwtDecode(token);
+    const userID = decodedToken.userID;
+
+    axios
+      .post(`/api/user/wallet/${userID}`)
+      .then((response) => {
+        const accountInfo = response.data;
+        setInfo(accountInfo);
+      })
+      .catch((error) => {
+        console.error("Error fetching user account details:", error);
+      });
+    document.title = "FiveStarsData | Fund Wallet";
   }, []);
+
   return (
     <div className="__main">
       <div className="breadcrumb">
@@ -21,7 +39,7 @@ const Fund = () => {
           wallet will be funded automatically.
         </article>
         <article>
-          <strong>Note:</strong> 2% Charges Applies.
+          <strong>Note:</strong> 1.08% Charges Applies.
         </article>
         <div className="bank_cards">
           <article className="moniepoint">
@@ -32,12 +50,14 @@ const Fund = () => {
               </div>
               <div className="info">
                 <h1>Account Name: </h1>
-                <h2>Five Stars Digital Solutions - Hal</h2>
+                <h2>
+                  Five Stars Digital Solutions - {accountInfo.account_name}
+                </h2>
               </div>
               <div className="info">
                 <h1>Account No.: </h1>
                 <div className="acc_no">
-                  <h2>1546352635</h2>
+                  <h2>{accountInfo.moniepoint_mfb}</h2>
                   <MdContentCopy className="copy" />
                 </div>
               </div>
@@ -51,31 +71,35 @@ const Fund = () => {
               </div>
               <div className="info">
                 <h1>Account Name: </h1>
-                <h2>Five Stars Digital Solutions - Hal</h2>
+                <h2>
+                  Five Stars Digital Solutions - {accountInfo.account_name}
+                </h2>
               </div>
               <div className="info">
                 <h1>Account No.: </h1>
                 <div className="acc_no">
-                  <h2>1546352635</h2>
+                  <h2>{accountInfo.wema_bank}</h2>
                   <MdContentCopy className="copy" />
                 </div>
               </div>
             </div>
           </article>
-          <article className="providus">
+          <article className="sterling">
             <div className="bank_card">
               <div className="info">
                 <h1>Bank Name: </h1>
-                <h2>Providus Bank</h2>
+                <h2>Sterling Bank</h2>
               </div>
               <div className="info">
                 <h1>Account Name: </h1>
-                <h2>Five Stars Digital Solutions - Hal</h2>
+                <h2>
+                  Five Stars Digital Solutions - {accountInfo.account_name}
+                </h2>
               </div>
               <div className="info">
                 <h1>Account No.: </h1>
                 <div className="acc_no">
-                  <h2>1546352635</h2>
+                  <h2>{accountInfo.sterling_bank}</h2>
                   <MdContentCopy className="copy" />
                 </div>
               </div>
