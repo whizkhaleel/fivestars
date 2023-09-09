@@ -10,7 +10,7 @@ import LoadingComponent from "../../../LoadingComponent";
 const Fund = () => {
   const token = localStorage.getItem("Token");
   const [accountInfo, setInfo] = useState(null);
-  const [done, setDone] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const setAccountInfo = (newInfo) => {
     setInfo(newInfo);
@@ -24,7 +24,7 @@ const Fund = () => {
       .then((response) => {
         const accInfo = response.data;
         setAccountInfo(accInfo);
-        setDone(true);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching user account details:", error);
@@ -36,7 +36,7 @@ const Fund = () => {
 
   return (
     <>
-      {done ? (
+      {isLoading === false ? (
         <div className="__main">
           <div className="breadcrumb">
             <h1>Fund Wallet</h1>
