@@ -123,8 +123,8 @@ const saveAccount = async (user_id, reservedAccount) => {
     const accountInfo = {
       user_id: user_id,
       account_name: reservedAccount.accounts[0].accountName,
-      balance: 0.0,
-      total_fund: 0.0,
+      balance: "0.00",
+      total_fund: "0.00",
       wema_bank: reservedAccount.accounts[0].accountNumber,
       sterling_bank: reservedAccount.accounts[1].accountNumber,
       moniepoint_mfb: reservedAccount.accounts[2].accountNumber,
@@ -159,8 +159,6 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
     });
     const prevBal = Number(user_account.balance);
     const totalFund = Number(user_account.total_fund);
-
-    console.log(user_account);
 
     const date = currentTime();
     const walletData = {
