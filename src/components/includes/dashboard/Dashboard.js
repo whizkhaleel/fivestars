@@ -61,15 +61,6 @@ const User = ({ user }) => {
     },
   ];
 
-  const data = records.map((record) => ({
-    id: record._id,
-    ref: record.ref,
-    type: record.product,
-    prev: `N${record.prev_balance}`,
-    new: `N${record.new_balance}`,
-    time: record.paidOn,
-  }));
-
   return (
     <div className="__main">
       <div className="breadcrumb">
@@ -141,7 +132,17 @@ const User = ({ user }) => {
             {isLoading === true ? (
               <LoadingComponent />
             ) : (
-              <Table columns={columns} />
+              <Table
+                columns={columns}
+                data={records.map((record) => ({
+                  id: record._id,
+                  ref: record.ref,
+                  type: record.product,
+                  prev: `N${record.prev_balance}`,
+                  new: `N${record.new_balance}`,
+                  time: record.paidOn,
+                }))}
+              />
             )}
           </div>
         </div>
