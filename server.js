@@ -189,7 +189,7 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
     const wallet = await walletHistory.insertOne(walletData);
     const update = await accounts.updateOne(
       { user_id: new ObjectId(userID) },
-      updateAccount
+      { updateAccount }
     );
     const trans = await transactions.insertOne(transactionData);
 
@@ -420,7 +420,7 @@ app.post("/webhook/monnify", async (req, res) => {
           const customerEmail = webhookData.eventData.customer.email;
           const status = webhookData.paymentStatus;
 
-          UpdateDatabase(ref, amount, customerEmail, status);
+          UpdateDatabase(ref, Number(amount), customerEmail, status);
 
           break;
 
