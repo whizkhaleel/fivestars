@@ -417,10 +417,10 @@ app.post("/webhook/monnify", async (req, res) => {
         case "SUCCESSFUL_TRANSACTION":
           const ref = webhookData.transactionReference;
           const amount = webhookData.settlementAmount;
-          const customerEmail = webhookData.customer["email"];
+          const customerEmail = webhookData.eventData.customer.email;
           const status = webhookData.paymentStatus;
 
-          UpdateDatabase(ref, amount, customerEmail, paymentStatus);
+          UpdateDatabase(ref, amount, customerEmail, status);
 
           break;
 
