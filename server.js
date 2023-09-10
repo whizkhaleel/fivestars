@@ -160,6 +160,8 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
     const prevBal = Number(user_account.balance);
     const totalFund = Number(user_account.total_fund);
 
+    console.log(user_account);
+
     const date = currentTime();
     const walletData = {
       user_id: userID,
