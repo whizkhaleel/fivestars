@@ -14,9 +14,12 @@ import {
 import Table from "../Table";
 import RequireAuth from "../../../RequireAuth";
 import { SlWallet } from "react-icons/sl";
+import LoadingComponent from "../../../LoadingComponent";
 
 const User = ({ user }) => {
   const [records, setRecord] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   const userID = user._id;
 
   const setRecordsInfo = (newInfo) => {
@@ -28,11 +31,14 @@ const User = ({ user }) => {
       .then((response) => {
         const recordInfo = response.data;
         setRecordsInfo(recordInfo);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching user transaction records:", error);
       });
   }, []);
+
+  console.log(records);
 
   const columns = [
     {
@@ -177,7 +183,11 @@ const User = ({ user }) => {
             <AiOutlineHistory /> Recent Transactions
           </h1>
           <div className="table">
-            <Table columns={columns} data={data} />
+            {isLoading === true ? (
+              <LoadingComponent />
+            ) : (
+              <Table columns={columns} data={data} />
+            )}
           </div>
         </div>
       </div>
