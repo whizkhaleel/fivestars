@@ -45,7 +45,7 @@ const currentTime = () => {
   const ampm = hours >= 12 ? "PM" : "AM";
   const formattedHours = hours % 12 || 12;
 
-  return `${month}, ${day} ${year} ${formattedHours}:${
+  return `${month} ${day}, ${year} ${formattedHours}:${
     (minutes < 10 ? "0" : "") + minutes
   } ${ampm}`;
 };
