@@ -157,6 +157,7 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
     const user_account = await accounts.findOne({
       user_id: new ObjectId(userID),
     });
+    console.log(user_account);
     const prevBal = user_account.balance;
     const totalFund = user_account.total_fund;
 
