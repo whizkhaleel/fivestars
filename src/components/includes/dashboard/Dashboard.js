@@ -16,7 +16,7 @@ import RequireAuth from "../../../RequireAuth";
 import { SlWallet } from "react-icons/sl";
 
 const User = ({ user }) => {
-  const [records, setRecords] = useState(user.transInfo);
+  const [records, setRecords] = useState([user.transInfo]);
 
   useEffect(() => {
     document.title = "FiveStarsVTU | User Dashboard";
@@ -45,17 +45,14 @@ const User = ({ user }) => {
     },
   ];
 
-  const data = [
-    records.map((record) => ({
-      id: record._id,
-      ref: record.ref,
-      type: record.product,
-      prev: `N${record.prev_balance}`,
-      new: `N${record.new_balance}`,
-      time: record.paidOn,
-    })),
-  ];
-
+  const data = records.map((record) => ({
+    id: record._id,
+    ref: record.ref,
+    type: record.product,
+    prev: `N${record.prev_balance}`,
+    new: `N${record.new_balance}`,
+    time: record.paidOn,
+  }));
   return (
     <div className="__main">
       <div className="breadcrumb">
