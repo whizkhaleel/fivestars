@@ -153,6 +153,7 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
 
     const user = await users.findOne({ email: customerEmail });
     const userID = user.userID;
+    console.log(user);
 
     const user_account = await accounts.findOne({
       user_id: new ObjectId(userID),
