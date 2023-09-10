@@ -172,8 +172,10 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
     };
 
     const updateAccount = {
-      balance: prevBal + amount,
-      total_fund: totalFund + amount,
+      $set: {
+        balance: prevBal + amount,
+        total_fund: totalFund + amount,
+      },
     };
 
     const transactionData = {
@@ -189,7 +191,7 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
     const wallet = await walletHistory.insertOne(walletData);
     const update = await accounts.updateOne(
       { user_id: new ObjectId(userID) },
-      { updateAccount }
+      updateAccount
     );
     const trans = await transactions.insertOne(transactionData);
 
