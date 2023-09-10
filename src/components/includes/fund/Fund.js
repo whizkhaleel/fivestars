@@ -32,6 +32,21 @@ const Fund = () => {
     document.title = "FiveStarsData | Fund Wallet";
   }, [token]);
 
+  const accountNumbers = document.querySelectorAll(".ac-no");
+  const copyButtons = document.querySelectorAll(".copy");
+
+  copyButtons.forEach((button, index) => {
+    button.addEventListener("click", async () => {
+      const textToCopy = accountNumbers[index].textContent;
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+      } catch (err) {
+        console.error("Unable to copy text: ", err);
+      }
+    });
+  });
+
   return (
     <>
       {isLoading === false ? (
@@ -65,7 +80,7 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2>{accountInfo.moniepoint_mfb}</h2>
+                      <h2 className="ac-no">{accountInfo.moniepoint_mfb}</h2>
                       <MdContentCopy className="copy" />
                     </div>
                   </div>
@@ -86,7 +101,7 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2>{accountInfo.wema_bank}</h2>
+                      <h2 className="ac-no">{accountInfo.wema_bank}</h2>
                       <MdContentCopy className="copy" />
                     </div>
                   </div>
@@ -107,7 +122,7 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2>{accountInfo.sterling_bank}</h2>
+                      <h2 className="ac-no">{accountInfo.sterling_bank}</h2>
                       <MdContentCopy className="copy" />
                     </div>
                   </div>
