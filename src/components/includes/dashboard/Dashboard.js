@@ -20,7 +20,7 @@ const User = ({ user }) => {
   const [records, setRecord] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userID = user._id;
+  const userID = user.userInfo._id;
 
   const setRecordsInfo = (newInfo) => {
     setRecord(newInfo);
@@ -37,8 +37,6 @@ const User = ({ user }) => {
         console.error("Error fetching user transaction records:", error);
       });
   }, []);
-
-  console.log(records);
 
   const columns = [
     {
@@ -71,49 +69,6 @@ const User = ({ user }) => {
     new: record.new_balance,
     time: record.paidOn,
   }));
-
-  // const data = [
-  //   {
-  //     id: 1,
-  //     ref: "25223572657",
-  //     type: "N250 MTN Airtime",
-  //     prev: "N3000.43",
-  //     new: "N2750.43",
-  //     time: "September 9, 2023 08:32AM",
-  //   },
-  //   {
-  //     id: 2,
-  //     ref: "25223572657",
-  //     type: "N250 MTN Airtime",
-  //     prev: "N3000.43",
-  //     new: "N2750.43",
-  //     time: "September 9, 2023 08:32AM",
-  //   },
-  //   {
-  //     id: 3,
-  //     ref: "25223572657",
-  //     type: "N250 MTN Airtime",
-  //     prev: "N3000.43",
-  //     new: "N2750.43",
-  //     time: "September 9, 2023 08:32AM",
-  //   },
-  //   {
-  //     id: 4,
-  //     ref: "25223572657",
-  //     type: "N250 MTN Airtime",
-  //     prev: "N3000.43",
-  //     new: "N2750.43",
-  //     time: "September 9, 2023 08:32AM",
-  //   },
-  //   {
-  //     id: 5,
-  //     ref: "25223572657",
-  //     type: "N250 MTN Airtime",
-  //     prev: "N3000.43",
-  //     new: "N2750.43",
-  //     time: "September 9, 2023 08:32AM",
-  //   },
-  // ];
 
   return (
     <div className="__main">
