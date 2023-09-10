@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import axios from "axios";
 import "../panel.scss";
 import "./dashboard.scss";
@@ -17,15 +17,15 @@ import { SlWallet } from "react-icons/sl";
 import LoadingComponent from "../../../LoadingComponent";
 
 const User = ({ user }) => {
-  const [records, setRecord] = useState(null);
+  const [records, setRecords] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userID = user.userInfo._id;
-
   const setRecordsInfo = (newInfo) => {
-    setRecord(newInfo);
+    setRecords(newInfo);
   };
   useEffect(() => {
+    const userID = user.userInfo._id;
+
     axios
       .post(`/api/user/transactions/${userID}`)
       .then((response) => {
@@ -65,8 +65,8 @@ const User = ({ user }) => {
     id: record._id,
     ref: record.ref,
     type: record.product,
-    prev: record.prev_balance,
-    new: record.new_balance,
+    prev: `N${record.prev_balance}`,
+    new: `N${record.new_balance}`,
     time: record.paidOn,
   }));
 
@@ -141,7 +141,7 @@ const User = ({ user }) => {
             {isLoading === true ? (
               <LoadingComponent />
             ) : (
-              <Table columns={columns} data={data} />
+              <Table columns={columns} />
             )}
           </div>
         </div>
