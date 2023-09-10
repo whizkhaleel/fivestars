@@ -344,6 +344,7 @@ app.post("/api/user/:userID", async (req, res) => {
     const database = client.db("vtu_db");
     const users = database.collection("users");
     const user_account = database.collection("user_account");
+    const transactions = database.collection("user_transactions");
 
     const userInfo = await users.findOne({
       _id: new ObjectId(userID),
@@ -353,8 +354,12 @@ app.post("/api/user/:userID", async (req, res) => {
       user_id: new ObjectId(userID),
     });
 
-    if (userInfo && accountInfo) {
-      const userData = { userInfo, accountInfo };
+    const transInfo = transactions.find({
+      user_id: new ObjectId(userID),
+    });
+
+    if (userInfo && accountInfo && transInfo) {
+      const userData = { userInfo, accountInfo, transInfo };
       res.status(201).json(userData);
     } else {
       res.status(404).json({ message: "No user found" });
@@ -410,7 +415,7 @@ app.post("/api/user/transactions/:userID", async (req, res) => {
     const database = client.db("vtu_db");
     const transactions = database.collection("user_transactions");
 
-    const recordInfo = await transactions.findOne({
+    const recordInfo = await transactions.find({
       user_id: new ObjectId(userID),
     });
 

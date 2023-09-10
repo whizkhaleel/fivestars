@@ -14,28 +14,12 @@ import {
 import Table from "../Table";
 import RequireAuth from "../../../RequireAuth";
 import { SlWallet } from "react-icons/sl";
-import LoadingComponent from "../../../LoadingComponent";
 
 const User = ({ user }) => {
-  const [records, setRecords] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [records, setRecords] = useState(user.transInfo);
 
-  const setRecordsInfo = (newInfo) => {
-    setRecords(newInfo);
-  };
   useEffect(() => {
-    const userID = user.userInfo._id;
-
-    axios
-      .post(`/api/user/transactions/${userID}`)
-      .then((response) => {
-        const recordInfo = response.data;
-        setRecordsInfo(recordInfo);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching user transaction records:", error);
-      });
+    document.title = "FiveStarsVTU | User Dashboard";
   }, []);
 
   const columns = [
@@ -60,6 +44,15 @@ const User = ({ user }) => {
       selector: (row) => row.time,
     },
   ];
+
+  const data = records.map((record) => ({
+    id: record._id,
+    ref: record.ref,
+    type: record.product,
+    prev: `N${record.prev_balance}`,
+    new: `N${record.new_balance}`,
+    time: record.paidOn,
+  }));
 
   return (
     <div className="__main">
@@ -129,21 +122,7 @@ const User = ({ user }) => {
             <AiOutlineHistory /> Recent Transactions
           </h1>
           <div className="table">
-            {isLoading === true ? (
-              <LoadingComponent />
-            ) : (
-              <Table
-                columns={columns}
-                data={records.map((record) => ({
-                  id: record._id,
-                  ref: record.ref,
-                  type: record.product,
-                  prev: `N${record.prev_balance}`,
-                  new: `N${record.new_balance}`,
-                  time: record.paidOn,
-                }))}
-              />
-            )}
+            <Table columns={columns} data={data} />
           </div>
         </div>
       </div>
