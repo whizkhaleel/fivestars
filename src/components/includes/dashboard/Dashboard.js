@@ -16,7 +16,7 @@ import RequireAuth from "../../../RequireAuth";
 import { SlWallet } from "react-icons/sl";
 
 const User = ({ user }) => {
-  const [records, setRecords] = useState([user.transInfo]);
+  const [records, setRecords] = useState(user.transInfo);
 
   useEffect(() => {
     document.title = "FiveStarsVTU | User Dashboard";

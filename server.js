@@ -354,9 +354,11 @@ app.post("/api/user/:userID", async (req, res) => {
       user_id: new ObjectId(userID),
     });
 
-    const transInfo = transactions.find({
-      user_id: new ObjectId(userID),
-    });
+    const transInfo = await transactions
+      .find({
+        user_id: new ObjectId(userID),
+      })
+      .toArray();
 
     if (userInfo && accountInfo && transInfo) {
       const userData = { userInfo, accountInfo, transInfo };
