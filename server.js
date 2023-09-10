@@ -397,15 +397,20 @@ app.post("/api/user/wallet/:userID", async (req, res) => {
 
 app.post("/webhook/monnify", async (req, res) => {
   try {
+    const sha512 = require("js-sha512").sha512;
     const receivedSignature = req.headers["monnify-signature"];
-    const Secret_Key = "KKYAT9AV1WMUFCGT4034BAKWC578CYU7";
 
-    const calculatedSignature = crypto
-      .createHmac("sha256", Secret_Key)
-      .update(JSON.stringify(req.body))
-      .digest("hex");
+    const DEFAULT_MERCHANT_CLIENT_SECRET = "KKYAT9AV1WMUFCGT4034BAKWC578CYU7";
 
-    if (receivedSignature === calculatedSignature) {
+    const computeHash = (requestBody) => {
+      const result = sha512.hmac(DEFAULT_MERCHANT_CLIENT_SECRET, requestBody);
+      return result;
+    };
+
+    const stringifiedBody = JSON.stringify(req.body);
+    const computedHash = computeHash(stringifiedBody);
+
+    if (receivedSignature === computedHash) {
       const webhookData = req.body;
 
       switch (webhookData.eventType) {
