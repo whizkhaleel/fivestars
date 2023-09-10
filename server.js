@@ -21,6 +21,35 @@ const URI =
 const contractCode = "677548149066";
 const API_URL = "https://api.monnify.com";
 
+const currentTime = () => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const date = new Date();
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12;
+
+  return `${month}, ${day} ${year} ${formattedHours}:${
+    (minutes < 10 ? "0" : "") + minutes
+  } ${ampm}`;
+};
+
 const getMonnifyAccessToken = async () => {
   const API_Key = "MK_PROD_45A2V7WMZZ";
   const Secret_Key = "KKYAT9AV1WMUFCGT4034BAKWC578CYU7";
@@ -102,6 +131,73 @@ const saveAccount = async (user_id, reservedAccount) => {
     };
 
     return await collection.insertOne(accountInfo);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await client.close();
+  }
+};
+const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const users = database.collection("users");
+    const accounts = database.collection("user_account");
+    const walletHistory = database.collection("wallet_history");
+    const transactions = database.collection("user_transactions");
+
+    const user = await users.findOne({ email: customerEmail });
+    const userID = user.userID;
+
+    const user_account = await accounts.findOne({
+      user_id: new ObjectId(userID),
+    });
+    const prevBal = user_account.balance;
+    const totalFund = user_account.total_fund;
+
+    const date = currentTime();
+    const walletData = {
+      user_id: userID,
+      ref: ref,
+      amount: amount,
+      prev_balance: prevBal,
+      new_balance: prevBal + amount,
+      status: paymentStatus,
+      paidOn: date,
+    };
+
+    const updateAccount = {
+      balance: prevBal + amount,
+      total_fund: totalFund + amount,
+    };
+
+    const transactionData = {
+      user_id: userID,
+      ref: ref,
+      product: "Monnify Wallet Funding",
+      amount: amount,
+      prev_balance: prevBal,
+      new_balance: prevBal + amount,
+      paidOn: date,
+    };
+
+    const wallet = await walletHistory.insertOne(walletData);
+    const update = await accounts.updateOne(
+      { user_id: new ObjectId(userID) },
+      updateAccount
+    );
+    const trans = await transactions.insertOne(transactionData);
+
+    if (wallet && update && trans) {
+      return console.log("Success");
+    } else {
+      console.error("Error");
+    }
   } catch (err) {
     console.error(err);
   } finally {
@@ -299,8 +395,48 @@ app.post("/api/user/wallet/:userID", async (req, res) => {
   }
 });
 
-app.post("/webhooks/monnify/payment", async (req, res) => {});
-app.post("/webhooks/monnify/refund", async (req, res) => {});
+app.post("/webhook/monnify", async (req, res) => {
+  try {
+    const receivedSignature = req.headers["x-monnify-signature"];
+
+    const calculatedSignature = crypto
+      .createHmac("sha256", Secret_Key)
+      .update(JSON.stringify(req.body))
+      .digest("hex");
+
+    if (receivedSignature === calculatedSignature) {
+      const webhookData = req.body;
+
+      switch (webhookData.eventType) {
+        case "SUCCESSFUL_TRANSACTION":
+          console.log("Bank transfer completed:", webhookData);
+
+          const ref = webhookData.transactionReference;
+          const amount = webhookData.amountPaid;
+          const customerEmail = webhookData.customer.email;
+          const status = webhookData.paymentStatus;
+
+          UpdateDatabase(ref, amount, customerEmail, paymentStatus);
+
+          break;
+
+        default:
+          console.log(
+            "Received unsupported webhook event:",
+            webhookData.eventType
+          );
+      }
+
+      res.status(200).send("Webhook received and authenticated successfully");
+    } else {
+      console.log("Received invalid webhook request. Signatures do not match.");
+      res.status(403).send("Forbidden");
+    }
+  } catch (error) {
+    console.error("Error handling webhook:", error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 app.set("port", 3000);
 app.listen(3000, () => {
