@@ -397,6 +397,36 @@ app.post("/api/user/wallet/:userID", async (req, res) => {
   }
 });
 
+app.post("/api/user/transactions/:userID", async (req, res) => {
+  const userID = req.params.userID;
+
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const transactions = database.collection("user_transactions");
+
+    const recordInfo = await transactions.findOne({
+      user_id: new ObjectId(userID),
+    });
+
+    if (recordInfo) {
+      res.status(201).json(recordInfo);
+    } else {
+      res.status(404).json({ message: "No user account found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await client.close();
+  }
+});
+
 app.post("/webhook/monnify", async (req, res) => {
   try {
     const sha512 = require("js-sha512").sha512;

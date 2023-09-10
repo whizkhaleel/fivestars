@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../panel.scss";
 import "./dashboard.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { BsPhone } from "react-icons/bs";
 import { TbCash } from "react-icons/tb";
@@ -15,11 +15,27 @@ import RequireAuth from "../../../RequireAuth";
 import { SlWallet } from "react-icons/sl";
 
 const User = ({ user }) => {
-  useEffect(() => {}, []);
+  const [records, setRecord] = useState(null);
+  const userID = user._id;
+
+  const setRecordsInfo = (newInfo) => {
+    setRecord(newInfo);
+  };
+  useEffect(() => {
+    axios
+      .post(`/api/user/transactions/${userID}`)
+      .then((response) => {
+        const recordInfo = response.data;
+        setRecordsInfo(recordInfo);
+      })
+      .catch((error) => {
+        console.error("Error fetching user transaction records:", error);
+      });
+  }, []);
 
   const columns = [
     {
-      name: "Transaction ID",
+      name: "Ref. ID",
       selector: (row) => row.ref,
     },
     {
@@ -40,48 +56,14 @@ const User = ({ user }) => {
     },
   ];
 
-  const data = [
-    {
-      id: 1,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-    {
-      id: 2,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-    {
-      id: 3,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-    {
-      id: 4,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-    {
-      id: 5,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-  ];
+  const data = records.map((record) => ({
+    id: record._id,
+    ref: record.ref,
+    type: record.product,
+    prev: record.prev_balance,
+    new: record.new_balance,
+    time: record.paidOn,
+  }));
 
   return (
     <div className="__main">
