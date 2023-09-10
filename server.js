@@ -398,6 +398,7 @@ app.post("/api/user/wallet/:userID", async (req, res) => {
 app.post("/webhook/monnify", async (req, res) => {
   try {
     const receivedSignature = req.headers["x-monnify-signature"];
+    console.log(req.headers);
     const Secret_Key = "KKYAT9AV1WMUFCGT4034BAKWC578CYU7";
 
     const calculatedSignature = crypto
