@@ -415,11 +415,9 @@ app.post("/webhook/monnify", async (req, res) => {
 
       switch (webhookData.eventType) {
         case "SUCCESSFUL_TRANSACTION":
-          console.log("Bank transfer completed:", webhookData);
-
           const ref = webhookData.transactionReference;
           const amount = webhookData.amountPaid;
-          const customerEmail = webhookData.customer.email;
+          const customerEmail = webhookData.customer["email"];
           const status = webhookData.paymentStatus;
 
           UpdateDatabase(ref, amount, customerEmail, paymentStatus);
