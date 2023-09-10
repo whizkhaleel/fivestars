@@ -413,7 +413,6 @@ app.post("/api/user/transactions/:userID", async (req, res) => {
     const recordInfo = await transactions.findOne({
       user_id: new ObjectId(userID),
     });
-    console.log(recordInfo);
 
     if (recordInfo) {
       res.status(201).json(recordInfo);
