@@ -32,6 +32,10 @@ const User = ({ user }) => {
       selector: (row) => row.type,
     },
     {
+      name: "Amount",
+      selector: (row) => row.amount,
+    },
+    {
       name: "Prev. Balance",
       selector: (row) => row.prev,
     },
@@ -49,6 +53,7 @@ const User = ({ user }) => {
     id: record._id,
     ref: record.ref,
     type: record.product,
+    amount: `N${record.amount}`,
     prev: `N${record.prev_balance}`,
     new: `N${record.new_balance}`,
     time: record.paidOn,
