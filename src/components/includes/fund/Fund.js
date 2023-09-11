@@ -39,11 +39,8 @@ const Fund = () => {
     button.addEventListener("click", async () => {
       const textToCopy = accountNumbers[index].textContent;
 
-      try {
-        await navigator.clipboard.writeText(textToCopy);
-      } catch (err) {
-        console.error("Unable to copy text: ", err);
-      }
+      textToCopy.select();
+      document.execCommand("copy");
     });
   });
 
