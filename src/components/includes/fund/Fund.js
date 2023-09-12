@@ -29,20 +29,24 @@ const Fund = () => {
       .catch((error) => {
         console.error("Error fetching user account details:", error);
       });
+
     document.title = "FiveStarsData | Fund Wallet";
   }, [token]);
 
-  const accountNumbers = document.querySelectorAll(".ac-no");
-  const copyButtons = document.querySelectorAll(".copy");
+  const copyMoniepoint = () => {
+    const textToCopy = accountInfo.moniepoint_mfb;
+    navigator.clipboard.writeText(textToCopy);
+  };
 
-  copyButtons.forEach((button, index) => {
-    button.addEventListener("click", async () => {
-      const textToCopy = accountNumbers[index].textContent;
+  const copyWema = () => {
+    const textToCopy = accountInfo.wema_bank;
+    navigator.clipboard.writeText(textToCopy);
+  };
 
-      textToCopy.select();
-      document.execCommand("copy");
-    });
-  });
+  const copySterling = () => {
+    const textToCopy = accountInfo.sterling_bank;
+    navigator.clipboard.writeText(textToCopy);
+  };
 
   return (
     <>
@@ -77,8 +81,12 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2 className="ac-no">{accountInfo.moniepoint_mfb}</h2>
-                      <MdContentCopy className="copy" />
+                      <h2 className="ac-no" id="moniepoint">
+                        {accountInfo.moniepoint_mfb}
+                      </h2>
+                      <span className="copy" onClick={copyMoniepoint()}>
+                        <MdContentCopy />
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -98,8 +106,12 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2 className="ac-no">{accountInfo.wema_bank}</h2>
-                      <MdContentCopy className="copy" />
+                      <h2 className="ac-no" id="wema">
+                        {accountInfo.wema_bank}
+                      </h2>
+                      <span className="copy" onClick={copyWema()}>
+                        <MdContentCopy />
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -119,8 +131,12 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2 className="ac-no">{accountInfo.sterling_bank}</h2>
-                      <MdContentCopy className="copy" />
+                      <h2 className="ac-no" id="sterling">
+                        {accountInfo.sterling_bank}
+                      </h2>
+                      <span className="copy" onClick={copySterling()}>
+                        <MdContentCopy />
+                      </span>
                     </div>
                   </div>
                 </div>
