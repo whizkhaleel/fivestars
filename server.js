@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const ObjectId = require("mongodb").ObjectId;
+require("dotenv").config();
 
 const buildPath = path.join(__dirname, "build");
 const app = express();
@@ -14,12 +15,14 @@ app.use("/", express.static(buildPath));
 app.use(cors());
 app.use(body_parser.json());
 
-const { MongoClient, ObjectID } = require("mongodb");
-const URI =
-  "mongodb+srv://fivestarsds:Gwandu1122@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority";
+const { MongoClient } = require("mongodb");
 
-const contractCode = "677548149066";
-const API_URL = "https://api.monnify.com";
+const mongodb_username = process.env.MONGODB_USERNAME;
+const mongodb_password = process.env.MONGODB_PASSWORD;
+const URI = `mongodb+srv://${mongodb_username}:${mongodb_password}@cluster0.mccdvlg.mongodb.net/?retryWrites=true&w=majority`;
+
+const contractCode = process.env.CONTRACT_CODE;
+const API_URL = process.env.API_URL;
 
 const currentTime = () => {
   const months = [
@@ -51,8 +54,8 @@ const currentTime = () => {
 };
 
 const getMonnifyAccessToken = async () => {
-  const API_Key = "MK_PROD_45A2V7WMZZ";
-  const Secret_Key = "KKYAT9AV1WMUFCGT4034BAKWC578CYU7";
+  const API_Key = process.env.API_KEY;
+  const Secret_Key = process.env.SECRET_KEY;
 
   const authHeader = `Basic ${Buffer.from(API_Key + ":" + Secret_Key).toString(
     "base64"
@@ -312,7 +315,7 @@ app.post("/api/login", async (req, res) => {
         userID: user._id,
         userRole: user.user_role,
       };
-      const expiration = Math.floor(Date.now() / 1000) + 30 * 60;
+      const expiration = Math.floor(Date.now() / 1000) + 15 * 60;
       const token = jwt.sign(payload, secretKey, {
         expiresIn: expiration,
       });
