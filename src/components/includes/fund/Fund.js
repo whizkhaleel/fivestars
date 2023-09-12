@@ -33,21 +33,6 @@ const Fund = () => {
     document.title = "FiveStarsData | Fund Wallet";
   }, [token]);
 
-  const copyMoniepoint = () => {
-    const textToCopy = accountInfo.moniepoint_mfb;
-    navigator.clipboard.writeText(textToCopy);
-  };
-
-  const copyWema = () => {
-    const textToCopy = accountInfo.wema_bank;
-    navigator.clipboard.writeText(textToCopy);
-  };
-
-  const copySterling = () => {
-    const textToCopy = accountInfo.sterling_bank;
-    navigator.clipboard.writeText(textToCopy);
-  };
-
   return (
     <>
       {isLoading === false ? (
@@ -81,12 +66,15 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2 className="ac-no" id="moniepoint">
-                        {accountInfo.moniepoint_mfb}
-                      </h2>
-                      <span className="copy" onClick={copyMoniepoint()}>
-                        <MdContentCopy />
-                      </span>
+                      <h2 className="ac-no">{accountInfo.moniepoint_mfb}</h2>
+                      <MdContentCopy
+                        className="copy"
+                        onClick={() =>
+                          navigator.clipboard.writeText(
+                            accountInfo.moniepoint_mfb
+                          )
+                        }
+                      />
                     </div>
                   </div>
                 </div>
@@ -106,12 +94,13 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2 className="ac-no" id="wema">
-                        {accountInfo.wema_bank}
-                      </h2>
-                      <span className="copy" onClick={copyWema()}>
-                        <MdContentCopy />
-                      </span>
+                      <h2 className="ac-no">{accountInfo.wema_bank}</h2>
+                      <MdContentCopy
+                        className="copy"
+                        onClick={() =>
+                          navigator.clipboard.writeText(accountInfo.wema_bank)
+                        }
+                      />
                     </div>
                   </div>
                 </div>
@@ -131,12 +120,15 @@ const Fund = () => {
                   <div className="info">
                     <h1>Account No.: </h1>
                     <div className="acc_no">
-                      <h2 className="ac-no" id="sterling">
-                        {accountInfo.sterling_bank}
-                      </h2>
-                      <span className="copy" onClick={copySterling()}>
-                        <MdContentCopy />
-                      </span>
+                      <h2 className="ac-no">{accountInfo.sterling_bank}</h2>
+                      <MdContentCopy
+                        className="copy"
+                        onClick={() =>
+                          navigator.clipboard.writeText(
+                            accountInfo.sterling_bank
+                          )
+                        }
+                      />
                     </div>
                   </div>
                 </div>
