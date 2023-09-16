@@ -149,7 +149,7 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
     const users = database.collection("users");
     const accounts = database.collection("user_account");
     const walletHistory = database.collection("wallet_history");
-    const transactions = database.collection("user_transactions");
+    const transactions = database.collection("user_transactions").sort({ date: -1 });
 
     const user = await users.findOne({ email: customerEmail });
     const userID = user._id;
