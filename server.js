@@ -149,7 +149,7 @@ const UpdateDatabase = async (ref, amount, customerEmail, paymentStatus) => {
     const users = database.collection("users");
     const accounts = database.collection("user_account");
     const walletHistory = database.collection("wallet_history");
-    const transactions = database.collection("user_transactions").sort({ date: -1 });
+    const transactions = database.collection("user_transactions");
 
     const user = await users.findOne({ email: customerEmail });
     const userID = user._id;
@@ -357,7 +357,7 @@ app.post("/api/user/:userID", async (req, res) => {
     const transInfo = await transactions
       .find({
         user_id: new ObjectId(userID),
-      })
+      }).sort({ date: -1 })
       .toArray();
 
     if (userInfo && accountInfo && transInfo) {
