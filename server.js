@@ -357,7 +357,7 @@ app.post("/api/user/:userID", async (req, res) => {
     const transInfo = await transactions
       .find({
         user_id: new ObjectId(userID),
-      }).sort({ date: -1 })
+      }).sort({ _id: -1 })
       .toArray();
 
     if (userInfo && accountInfo && transInfo) {
