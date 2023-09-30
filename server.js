@@ -357,7 +357,8 @@ app.post("/api/user/:userID", async (req, res) => {
     const transInfo = await transactions
       .find({
         user_id: new ObjectId(userID),
-      }).sort({ _id: -1 })
+      })
+      .sort({ _id: -1 })
       .toArray();
 
     if (userInfo && accountInfo && transInfo) {
@@ -429,6 +430,72 @@ app.post("/api/user/transactions/:userID", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await client.close();
+  }
+});
+
+app.post("/api/monnify/settings", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const collection = database.collection("monnify_settings");
+
+    const { api_key, secret_key, contract_code, top_up_charges } = req.body;
+
+    const existingRecord = await collection.findOne({
+      $or: [
+        { api_key: api_key },
+        { secret_key: secret_key },
+        { contract_code: contract_code },
+      ],
+    });
+
+    const MonnifySettings = {
+      api_key: api_key,
+      secret_key: secret_key,
+      contract_code: contract_code,
+      topUp_charges: top_up_charges,
+      date_created: currentTime(),
+    };
+
+    if (existingRecord) {
+      const updateRecord = {
+        $set: {
+          api_key: api_key,
+          secret_key: secret_key,
+          contract_code: contract_code,
+          topUp_charges: top_up_charges,
+          date_created: currentTime(),
+        },
+      };
+
+      const update = await accounts.updateOne(
+        { user_id: new ObjectId(userID) },
+        updateRecord
+      );
+      if (update) {
+        res.status(201).json({ message: "Record updated successfully" });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    } else {
+      const result = await collection.insertOne(MonnifySettings);
+
+      if (result) {
+        res.status(201).json({ message: "Record updated successfully" });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
   } finally {
     await client.close();
   }
