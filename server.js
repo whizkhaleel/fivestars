@@ -475,8 +475,8 @@ app.post("/api/monnify/settings", async (req, res) => {
         },
       };
 
-      const update = await accounts.updateOne(
-        { user_id: new ObjectId(userID) },
+      const update = await collection.updateOne(
+        { secret_key: secret_key },
         updateRecord
       );
       if (update) {

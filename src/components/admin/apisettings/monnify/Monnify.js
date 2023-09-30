@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 const Monnify = () => {
   const [formData, setFormData] = useState({
     monnifyApiKey: "",
@@ -65,6 +65,7 @@ const Monnify = () => {
 
   return (
     <form onSubmit={handleSubmit} className="form-group">
+      <ToastContainer />
       <div className="input-group">
         <label>Monnify API Key</label>
         <input
