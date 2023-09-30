@@ -135,15 +135,24 @@ const User = ({ user }) => {
 };
 
 const Admin = ({ user }) => {
-  useEffect(() => {}, []);
+  const [records, setRecords] = useState(user.transInfo);
+
+  useEffect(() => {
+    document.title = "FiveStarsVTU | Admin Dashboard";
+  }, []);
+
   const columns = [
     {
-      name: "Transaction ID",
+      name: "Ref. ID",
       selector: (row) => row.ref,
     },
     {
       name: "Transaction",
       selector: (row) => row.type,
+    },
+    {
+      name: "Amount",
+      selector: (row) => row.amount,
     },
     {
       name: "Prev. Balance",
@@ -159,48 +168,15 @@ const Admin = ({ user }) => {
     },
   ];
 
-  const data = [
-    {
-      id: 1,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-    {
-      id: 2,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-    {
-      id: 3,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-    {
-      id: 4,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-    {
-      id: 5,
-      ref: "25223572657",
-      type: "N250 MTN Airtime",
-      prev: "N3000.43",
-      new: "N2750.43",
-      time: "September 9, 2023 08:32AM",
-    },
-  ];
+  const data = records.map((record) => ({
+    id: record._id,
+    ref: record.ref,
+    type: record.product,
+    amount: `N${record.amount}`,
+    prev: `N${record.prev_balance}`,
+    new: `N${record.new_balance}`,
+    time: record.paidOn,
+  }));
   return (
     <div className="__main">
       <div className="breadcrumb">
@@ -247,20 +223,28 @@ const Admin = ({ user }) => {
       <div className="__container_misc">
         <div className="services">
           <Link to="airtime" className="service">
-            <BsPhone className="icon" />
-            <h1>Airtime</h1>
+            <div className="content">
+              <BsPhone className="icon" />
+              <h1>Airtime</h1>
+            </div>
           </Link>
           <Link to="data" className="service">
-            <AiOutlineWifi className="icon" />
-            <h1>Data</h1>
+            <div className="content">
+              <AiOutlineWifi className="icon" />
+              <h1>Data</h1>
+            </div>
           </Link>
           <Link to="datacard" className="service">
-            <AiOutlineCreditCard className="icon" />
-            <h1>Data PIN</h1>
+            <div className="content">
+              <AiOutlineCreditCard className="icon" />
+              <h1>Data PIN</h1>
+            </div>
           </Link>
           <Link to="convert" className="service hide">
-            <TbCash className="icon" />
-            <h1>Convert Airtime</h1>
+            <div className="content">
+              <TbCash className="icon" />
+              <h1>Convert Airtime</h1>
+            </div>
           </Link>
         </div>
         <div className="transactions">
