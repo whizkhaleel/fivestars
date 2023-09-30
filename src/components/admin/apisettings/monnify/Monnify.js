@@ -3,12 +3,17 @@ import React, { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 const Monnify = () => {
-  const [formData, setFormData] = useState({
-    monnifyApiKey: "",
-    monnifySecretKey: "",
-    contractCode: "",
-    walletTopUpCharges: "",
+  const [inputs, setInputs] = useState({
+    api_key: "",
+    secret_key: "",
+    contract_code: "",
+    top_up_charges: "",
   });
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setInputs({ ...inputs, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,14 +60,6 @@ const Monnify = () => {
       });
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
   return (
     <form onSubmit={handleSubmit} className="form-group">
       <ToastContainer />
@@ -72,8 +69,8 @@ const Monnify = () => {
           name="monnifyApiKey"
           type="text"
           placeholder="Enter Monnify API key"
-          value={formData.monnifyApiKey}
-          onChange={handleInputChange}
+          value={inputs.api_key}
+          onChange={handleInput}
         />
       </div>
       <div className="input-group">
@@ -82,8 +79,8 @@ const Monnify = () => {
           name="monnifySecretKey"
           type="text"
           placeholder="Enter Monnify Secret key"
-          value={formData.monnifySecretKey}
-          onChange={handleInputChange}
+          value={inputs.secret_key}
+          onChange={handleInput}
         />
       </div>
       <div className="input-group">
@@ -92,8 +89,8 @@ const Monnify = () => {
           type="text"
           name="contractCode"
           placeholder="Enter Monnify Contract Code"
-          value={formData.contractCode}
-          onChange={handleInputChange}
+          value={inputs.contract_code}
+          onChange={handleInput}
         />
       </div>
       <div className="input-group">
@@ -102,8 +99,8 @@ const Monnify = () => {
           type="text"
           name="walletTopUpCharges"
           placeholder="Enter Wallet Top-up Charges"
-          value={formData.walletTopUpCharges}
-          onChange={handleInputChange}
+          value={inputs.top_up_charges}
+          onChange={handleInput}
         />
       </div>
       <button type="submit" className="btn btn-primary">
