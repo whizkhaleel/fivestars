@@ -17,9 +17,15 @@ const Monnify = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const payload = {
+      api_key: inputs.api_key,
+      secret_key: inputs.secret_key,
+      contract_code: inputs.contract_code,
+      top_up_charges: inputs.top_up_charges,
+    };
 
     axios
-      .post("/api/monnify/settings", formData)
+      .post("/api/monnify/settings", payload)
       .then((response) => {
         if (response.status === 201) {
           toast.success(`${response.data.message}`, {
