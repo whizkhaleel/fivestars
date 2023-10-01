@@ -418,7 +418,7 @@ app.post("/api/user/transactions/:userID", async (req, res) => {
     const database = client.db("vtu_db");
     const transactions = database.collection("user_transactions");
 
-    const recordInfo = await transactions.find({
+    const recordInfo = transactions.find({
       user_id: new ObjectId(userID),
     });
 
@@ -488,7 +488,7 @@ app.post("/api/monnify/settings", async (req, res) => {
       const result = await collection.insertOne(MonnifySettings);
 
       if (result) {
-        res.status(201).json({ message: "Record updated successfully" });
+        res.status(201).json({ message: "Record saved successfully" });
       } else {
         res.status(500).json({ error: "Internal server error" });
       }

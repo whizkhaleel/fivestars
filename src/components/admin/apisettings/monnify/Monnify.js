@@ -72,7 +72,7 @@ const Monnify = () => {
       <div className="input-group">
         <label>Monnify API Key</label>
         <input
-          name="apiKey"
+          name="api_key"
           type="text"
           placeholder="Enter Monnify API key"
           value={inputs.api_key}
@@ -82,7 +82,7 @@ const Monnify = () => {
       <div className="input-group">
         <label>Monnify Secret Key</label>
         <input
-          name="secretKey"
+          name="secret_key"
           type="text"
           placeholder="Enter Monnify Secret key"
           value={inputs.secret_key}
@@ -93,7 +93,7 @@ const Monnify = () => {
         <label>Monnify Contract Code</label>
         <input
           type="text"
-          name="contractCode"
+          name="contract_code"
           placeholder="Enter Monnify Contract Code"
           value={inputs.contract_code}
           onChange={handleInput}
@@ -103,7 +103,7 @@ const Monnify = () => {
         <label>Wallet Top-up Charges</label>
         <input
           type="text"
-          name="topUpCharges"
+          name="top_up_charges"
           placeholder="Enter Wallet Top-up Charges"
           value={inputs.top_up_charges}
           onChange={handleInput}
