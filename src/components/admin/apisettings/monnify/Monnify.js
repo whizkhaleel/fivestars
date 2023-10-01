@@ -90,8 +90,6 @@ const Monnify = () => {
       });
   };
 
-  console.log(data);
-
   return (
     <>
       {isLoading === false ? (
