@@ -15,7 +15,7 @@ const Monnify = () => {
     setInputs({ ...inputs, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
       api_key: inputs.api_key,
@@ -72,7 +72,7 @@ const Monnify = () => {
       <div className="input-group">
         <label>Monnify API Key</label>
         <input
-          name="monnifyApiKey"
+          name="apiKey"
           type="text"
           placeholder="Enter Monnify API key"
           value={inputs.api_key}
@@ -82,7 +82,7 @@ const Monnify = () => {
       <div className="input-group">
         <label>Monnify Secret Key</label>
         <input
-          name="monnifySecretKey"
+          name="secretKey"
           type="text"
           placeholder="Enter Monnify Secret key"
           value={inputs.secret_key}
@@ -103,7 +103,7 @@ const Monnify = () => {
         <label>Wallet Top-up Charges</label>
         <input
           type="text"
-          name="walletTopUpCharges"
+          name="topUpCharges"
           placeholder="Enter Wallet Top-up Charges"
           value={inputs.top_up_charges}
           onChange={handleInput}
