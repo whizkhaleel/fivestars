@@ -501,6 +501,32 @@ app.post("/api/monnify/settings", async (req, res) => {
   }
 });
 
+app.post("/api/monnify/records", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const monnify = database.collection("monnify_settings");
+
+    const monnifyInfo = await monnify.find().toArray();
+
+    if (monnifyInfo) {
+      res.status(201).json(monnifyInfo);
+    } else {
+      res.status(404).json({ message: "No monnify information found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await client.close();
+  }
+});
+
 app.post("/webhook/monnify", async (req, res) => {
   try {
     const sha512 = require("js-sha512").sha512;
