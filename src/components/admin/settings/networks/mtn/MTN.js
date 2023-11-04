@@ -156,7 +156,9 @@ const MTN = () => {
           <option value="Disable">Disable</option>
         </select>
       </div>
-      <button className="btn btn-primary">Save</button>
+      <button type="submit" className="btn btn-primary">
+        Save
+      </button>
     </form>
   );
 };
