@@ -710,7 +710,6 @@ app.post("/api/network/records", async (req, res) => {
   });
 
   const network_name = req.body.network_name;
-  console.log(network_name);
 
   try {
     await client.connect();
@@ -725,6 +724,32 @@ app.post("/api/network/records", async (req, res) => {
       res.status(201).json(networkInfo);
     } else {
       res.status(404).json({ message: "No monnify information found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await client.close();
+  }
+});
+
+app.post("/api/networks/records", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const collection = database.collection("network_providers");
+
+    const networksInfo = await collection.find().toArray();
+
+    if (networksInfo) {
+      res.status(201).json(networksInfo);
+    } else {
+      res.status(404).json({ message: "No Networks information found" });
     }
   } catch (err) {
     console.error(err);
