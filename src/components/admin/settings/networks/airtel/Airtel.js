@@ -25,7 +25,7 @@ const Airtel = () => {
         setIsLoading(false);
       });
 
-    document.title = "FiveStarsData | MTN Settings";
+    document.title = "FiveStarsData | Airtel Settings";
   }, []);
 
   const [inputs, setInputs] = useState({
