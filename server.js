@@ -759,6 +759,78 @@ app.post("/api/networks/records", async (req, res) => {
   }
 });
 
+//Data Plans
+
+app.post("/api/dataplans/add", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const networks = database.collection("network_providers");
+    const dataplans = database.collection("data_plans");
+
+    const {
+      network_name,
+      plan_name,
+      plan_type,
+      plan_id,
+      validity_days,
+      buying_price,
+      user_price,
+      reseller_price,
+    } = req.body;
+
+    const networkInfo = await collection.findOne({
+      network_name: network_name,
+    });
+
+    const PlanInfo = {
+      network_id: networkInfo.network_id,
+      network_name: network_name,
+      plan_name: plan_name,
+      plan_type: plan_type,
+      plan_id: plan_id,
+      validity_days: validity_days,
+      buying_price: buying_price,
+      user_price: user_price,
+      reseller_price: reseller_price,
+      date_created: currentTime(),
+    };
+
+    const existingUser = await collection.findOne({
+      $or: [
+        { network_id: network_id },
+        { network_name: network_name },
+        { plan_id: plan_id },
+      ],
+    });
+
+    if (existingUser) {
+      res.json({
+        message: "Data Plan already exist.",
+      });
+      return;
+    }
+
+    const result = await dataplans.insertOne(PlanInfo);
+
+    if (result) {
+      res.status(201).json({ message: "Data Plan added successfully" });
+    } else {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  } finally {
+    await client.close();
+  }
+});
+
 //Monnify
 
 app.post("/webhook/monnify", async (req, res) => {

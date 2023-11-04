@@ -4,7 +4,6 @@ import { FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import LoadingComponent from "../../../../../LoadingComponent";
 
 export const AddPlan = ({ isOpen, setIsOpen }) => {
   const [inputs, setInputs] = useState({
@@ -84,6 +83,7 @@ export const AddPlan = ({ isOpen, setIsOpen }) => {
   };
   return (
     <div className="__model" style={{ display: isOpen ? "block" : "none" }}>
+      <ToastContainer />
       <div className="model_container">
         <div className="model_header">
           <h1>Add new plan</h1>
