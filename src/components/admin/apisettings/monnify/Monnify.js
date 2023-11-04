@@ -28,10 +28,10 @@ const Monnify = () => {
   }, []);
 
   const [inputs, setInputs] = useState({
-    api_key: data[0]?.api_key,
-    secret_key: data[0]?.secret_key,
-    contract_code: data[0]?.contract_code,
-    top_up_charges: data[0]?.top_up_charges,
+    api_key: "",
+    secret_key: "",
+    contract_code: "",
+    top_up_charges: "",
   });
 
   const handleInput = (e) => {
@@ -101,7 +101,7 @@ const Monnify = () => {
               name="api_key"
               type="text"
               placeholder="Enter Monnify API key"
-              value={inputs.api_key}
+              value={inputs.api_key || data[0]?.api_key}
               onChange={handleInput}
             />
           </div>
@@ -111,7 +111,7 @@ const Monnify = () => {
               name="secret_key"
               type="text"
               placeholder="Enter Monnify Secret key"
-              value={inputs.secret_key}
+              value={inputs.secret_key || data[0]?.secret_key}
               onChange={handleInput}
             />
           </div>
@@ -121,7 +121,7 @@ const Monnify = () => {
               type="text"
               name="contract_code"
               placeholder="Enter Monnify Contract Code"
-              value={inputs.contract_code}
+              value={inputs.contract_code || data[0]?.contract_code}
               onChange={handleInput}
             />
           </div>
@@ -131,7 +131,7 @@ const Monnify = () => {
               type="text"
               name="top_up_charges"
               placeholder="Enter Wallet Top-up Charges"
-              value={inputs.top_up_charges}
+              value={inputs.top_up_charges || data[0]?.topUp_charges}
               onChange={handleInput}
             />
           </div>
