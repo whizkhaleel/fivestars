@@ -75,6 +75,7 @@ const Data = () => {
                       <th>Plan Network</th>
                       <th>Plan Price</th>
                       <th>Selling Price</th>
+                      <th>Validity</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -88,6 +89,7 @@ const Data = () => {
                         <td>{plan.network_name}</td>
                         <td>{plan.buying_price}</td>
                         <td>{plan.user_price}</td>
+                        <td>{plan.validity_days + " days"}</td>
                         <td className="btns">
                           <Link
                             className="edit"
