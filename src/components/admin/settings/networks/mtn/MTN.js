@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 const MTN = () => {
@@ -92,6 +92,7 @@ const MTN = () => {
   }, []);
   return (
     <form method="POST" className="form-group" onSubmit={handleSubmit}>
+      <ToastContainer />
       <div className="input-group">
         <label>Network ID</label>
         <input
