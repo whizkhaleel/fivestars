@@ -527,6 +527,182 @@ app.post("/api/monnify/records", async (req, res) => {
   }
 });
 
+//api
+app.post("/api/api_endpoints/settings", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const collection = database.collection("api_settings");
+
+    const {
+      airtimeApiKey,
+      airtimeApiUrl,
+      dataApiKey,
+      dataApiUrl,
+      dataCardApiKey,
+      dataCardApiUrl,
+      cableApiKey,
+      cableApiUrl,
+    } = req.body;
+
+    const existingRecord = await collection.findOne({
+      $or: [
+        { api_key: api_key },
+        { secret_key: secret_key },
+        { contract_code: contract_code },
+      ],
+    });
+
+    const MonnifySettings = {
+      api_key: api_key,
+      secret_key: secret_key,
+      contract_code: contract_code,
+      topUp_charges: top_up_charges,
+      date_created: currentTime(),
+    };
+
+    if (existingRecord) {
+      const updateRecord = {
+        $set: {
+          api_key: api_key,
+          secret_key: secret_key,
+          contract_code: contract_code,
+          topUp_charges: top_up_charges,
+          date_created: currentTime(),
+        },
+      };
+
+      const update = await collection.updateOne(
+        { secret_key: secret_key },
+        updateRecord
+      );
+      if (update) {
+        res.status(201).json({ message: "Record updated successfully" });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    } else {
+      const result = await collection.insertOne(MonnifySettings);
+
+      if (result) {
+        res.status(201).json({ message: "Record saved successfully" });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  } finally {
+    await client.close();
+  }
+});
+
+app.post("/api/api_endpoints/records", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const monnify = database.collection("monnify_settings");
+
+    const monnifyInfo = await monnify.find().toArray();
+
+    if (monnifyInfo) {
+      res.status(201).json(monnifyInfo);
+    } else {
+      res.status(404).json({ message: "No monnify information found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await client.close();
+  }
+});
+
+//Network Settings
+app.post("/api/network/settings", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const collection = database.collection("network_providers");
+
+    const {
+      network_id,
+      network_name,
+      airtime_status,
+      sme_status,
+      gifting_status,
+      cg_status,
+      special_status,
+    } = req.body;
+
+    const existingRecord = await collection.findOne({ network_id: network_id });
+
+    const NetworkSettings = {
+      network_id: network_id,
+      network_name: network_name,
+      airtime_status: airtime_status,
+      sme_status: sme_status,
+      gifting_status: gifting_status,
+      cg_status: cg_status,
+      special_status: special_status,
+      date_created: currentTime(),
+    };
+
+    if (existingRecord) {
+      const updateRecord = {
+        $set: {
+          network_name: network_name,
+          airtime_status: airtime_status,
+          sme_status: sme_status,
+          gifting_status: gifting_status,
+          cg_status: cg_status,
+          special_status: special_status,
+          date_created: currentTime(),
+        },
+      };
+
+      const update = await collection.updateOne(
+        { network_id: network_id },
+        updateRecord
+      );
+      if (update) {
+        res.status(201).json({ message: "Record updated successfully" });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    } else {
+      const result = await collection.insertOne(NetworkSettings);
+
+      if (result) {
+        res.status(201).json({ message: "Record saved successfully" });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  } finally {
+    await client.close();
+  }
+});
+
 app.post("/webhook/monnify", async (req, res) => {
   try {
     const sha512 = require("js-sha512").sha512;

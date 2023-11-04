@@ -4,6 +4,10 @@ const Glo = () => {
   return (
     <form method="POST" className="form-group">
       <div className="input-group">
+        <label>Network ID</label>
+        <input type="text" value="" onChange="" />
+      </div>
+      <div className="input-group">
         <label>Glo Airtime</label>
         <select name="plan">
           <option value="Enable">Enable</option>
