@@ -109,6 +109,7 @@ const MTN = () => {
           value={inputs.airtime_status}
           onChange={handleInput}
         >
+          <option value="">--- Select Option ---</option>
           <option value="Enable">Enable</option>
           <option value="Disable">Disable</option>
         </select>
@@ -131,6 +132,7 @@ const MTN = () => {
           value={inputs.gifting_status}
           onChange={handleInput}
         >
+          <option value="">--- Select Option ---</option>
           <option value="Enable">Enable</option>
           <option value="Disable">Disable</option>
         </select>
@@ -142,6 +144,7 @@ const MTN = () => {
           value={inputs.cg_status}
           onChange={handleInput}
         >
+          <option value="">--- Select Option ---</option>
           <option value="Enable">Enable</option>
           <option value="Disable">Disable</option>
         </select>
@@ -153,6 +156,7 @@ const MTN = () => {
           value={inputs.special_status}
           onChange={handleInput}
         >
+          <option value="">--- Select Option ---</option>
           <option value="Enable">Enable</option>
           <option value="Disable">Disable</option>
         </select>
