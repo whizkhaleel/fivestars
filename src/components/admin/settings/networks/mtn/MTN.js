@@ -2,9 +2,31 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import LoadingComponent from "../../../../../LoadingComponent";
 
 const MTN = () => {
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const setNetworkInfo = (newInfo) => {
+    setData(newInfo);
+  };
+
+  useEffect(() => {
+    axios
+      .post("/api/network/records", { network_name: "MTN" })
+      .then((response) => {
+        const netInfo = response.data;
+        setNetworkInfo(netInfo);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching network details:", error);
+        setIsLoading(false);
+      });
+
+    document.title = "FiveStarsData | MTN Settings";
+  }, []);
 
   const [inputs, setInputs] = useState({
     network_id: "",
@@ -76,95 +98,94 @@ const MTN = () => {
       });
   };
 
-  useEffect(() => {
-    axios
-      .post("/api/api_endpoints/records")
-      .then((response) => {
-        const monInfo = response.data;
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching monnify details:", error);
-        setIsLoading(false);
-      });
-
-    document.title = "FiveStarsData | MTN Settings";
-  }, []);
   return (
-    <form method="POST" className="form-group" onSubmit={handleSubmit}>
-      <ToastContainer />
-      <div className="input-group">
-        <label>Network ID</label>
-        <input
-          type="text"
-          name="network_id"
-          value={inputs.network_id}
-          onChange={handleInput}
-        />
-      </div>
-      <div className="input-group">
-        <label>MTN Airtime</label>
-        <select
-          name="airtime_status"
-          value={inputs.airtime_status}
-          onChange={handleInput}
-        >
-          <option value="">--- Select Option ---</option>
-          <option value="Enable">Enable</option>
-          <option value="Disable">Disable</option>
-        </select>
-      </div>
-      <div className="input-group">
-        <label>MTN SME</label>
-        <select
-          name="sme_status"
-          value={inputs.sme_status}
-          onChange={handleInput}
-        >
-          <option value="Enable">Enable</option>
-          <option value="Disable">Disable</option>
-        </select>
-      </div>
-      <div className="input-group">
-        <label>MTN Gifting</label>
-        <select
-          name="gifting_status"
-          value={inputs.gifting_status}
-          onChange={handleInput}
-        >
-          <option value="">--- Select Option ---</option>
-          <option value="Enable">Enable</option>
-          <option value="Disable">Disable</option>
-        </select>
-      </div>
-      <div className="input-group">
-        <label>MTN Corporate Gifting</label>
-        <select
-          name="cg_status"
-          value={inputs.cg_status}
-          onChange={handleInput}
-        >
-          <option value="">--- Select Option ---</option>
-          <option value="Enable">Enable</option>
-          <option value="Disable">Disable</option>
-        </select>
-      </div>
-      <div className="input-group">
-        <label>MTN Special Data</label>
-        <select
-          name="special_status"
-          value={inputs.special_status}
-          onChange={handleInput}
-        >
-          <option value="">--- Select Option ---</option>
-          <option value="Enable">Enable</option>
-          <option value="Disable">Disable</option>
-        </select>
-      </div>
-      <button type="submit" className="btn btn-primary">
-        Save
-      </button>
-    </form>
+    <>
+      {isLoading === true ? (
+        <LoadingComponent />
+      ) : (
+        <form method="POST" className="form-group" onSubmit={handleSubmit}>
+          <ToastContainer />
+          <div className="input-group">
+            <label>Network ID</label>
+            <input
+              type="text"
+              name="network_id"
+              value={inputs.network_id || data[0]?.network_id}
+              onChange={handleInput}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>MTN Airtime</label>
+            <select
+              name="airtime_status"
+              value={inputs.airtime_status || data[0]?.airtime_status}
+              onChange={handleInput}
+              required
+            >
+              <option value="">--- Select Option ---</option>
+              <option value="Enable">Enable</option>
+              <option value="Disable">Disable</option>
+            </select>
+          </div>
+          <div className="input-group">
+            <label>MTN SME</label>
+            <select
+              name="sme_status"
+              value={inputs.sme_status || data[0]?.sme_status}
+              onChange={handleInput}
+              required
+            >
+              <option value="">--- Select Option ---</option>
+              <option value="Enable">Enable</option>
+              <option value="Disable">Disable</option>
+            </select>
+          </div>
+          <div className="input-group">
+            <label>MTN Gifting</label>
+            <select
+              name="gifting_status"
+              value={inputs.gifting_status || data[0]?.gifting_status}
+              onChange={handleInput}
+              required
+            >
+              <option value="">--- Select Option ---</option>
+              <option value="Enable">Enable</option>
+              <option value="Disable">Disable</option>
+            </select>
+          </div>
+          <div className="input-group">
+            <label>MTN Corporate Gifting</label>
+            <select
+              name="cg_status"
+              value={inputs.cg_status || data[0]?.cg_status}
+              onChange={handleInput}
+              required
+            >
+              <option value="">--- Select Option ---</option>
+              <option value="Enable">Enable</option>
+              <option value="Disable">Disable</option>
+            </select>
+          </div>
+          <div className="input-group">
+            <label>MTN Special Data</label>
+            <select
+              name="special_status"
+              value={inputs.special_status || data[0]?.special_status}
+              onChange={handleInput}
+              required
+            >
+              <option value="">--- Select Option ---</option>
+              <option value="Enable">Enable</option>
+              <option value="Disable">Disable</option>
+            </select>
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Save
+          </button>
+        </form>
+      )}
+    </>
   );
 };
 

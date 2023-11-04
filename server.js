@@ -703,6 +703,39 @@ app.post("/api/network/settings", async (req, res) => {
   }
 });
 
+app.post("/api/network/records", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  const network_name = req.body.network_name;
+  console.log(network_name);
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const collection = database.collection("network_providers");
+
+    const networkInfo = await collection
+      .find({ network_name: network_name })
+      .toArray();
+
+    if (networkInfo) {
+      res.status(201).json(networkInfo);
+    } else {
+      res.status(404).json({ message: "No monnify information found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await client.close();
+  }
+});
+
+//Monnify
+
 app.post("/webhook/monnify", async (req, res) => {
   try {
     const sha512 = require("js-sha512").sha512;
