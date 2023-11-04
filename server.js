@@ -784,48 +784,79 @@ app.post("/api/dataplans/add", async (req, res) => {
       reseller_price,
     } = req.body;
 
-    const networkInfo = await collection.findOne({
+    const networkInfo = await networks.findOne({
       network_name: network_name,
     });
 
-    const PlanInfo = {
-      network_id: networkInfo.network_id,
-      network_name: network_name,
-      plan_name: plan_name,
-      plan_type: plan_type,
-      plan_id: plan_id,
-      validity_days: validity_days,
-      buying_price: buying_price,
-      user_price: user_price,
-      reseller_price: reseller_price,
-      date_created: currentTime(),
-    };
+    if (networkInfo) {
+      network_id = networkInfo.network_id;
+      const PlanInfo = {
+        network_id: network_id,
+        network_name: network_name,
+        plan_name: plan_name,
+        plan_type: plan_type,
+        plan_id: plan_id,
+        validity_days: validity_days,
+        buying_price: buying_price,
+        user_price: user_price,
+        reseller_price: reseller_price,
+        date_created: currentTime(),
+      };
 
-    const existingUser = await collection.findOne({
-      $or: [
-        { network_id: network_id },
-        { network_name: network_name },
-        { plan_id: plan_id },
-      ],
-    });
-
-    if (existingUser) {
-      res.json({
-        message: "Data Plan already exist.",
+      const existingUser = await dataplans.findOne({
+        $and: [
+          { network_id: network_id },
+          { network_name: network_name },
+          { plan_id: plan_id },
+        ],
       });
-      return;
-    }
 
-    const result = await dataplans.insertOne(PlanInfo);
+      if (existingUser) {
+        res.json({
+          message: "Data Plan already exist.",
+        });
+        return;
+      }
 
-    if (result) {
-      res.status(201).json({ message: "Data Plan added successfully" });
+      const result = await dataplans.insertOne(PlanInfo);
+
+      if (result) {
+        res.status(201).json({ message: "Data Plan added successfully" });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
     } else {
       res.status(500).json({ error: "Internal server error" });
     }
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
+  } finally {
+    await client.close();
+  }
+});
+
+app.post("/api/dataplans/records", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const collection = database.collection("data_plans");
+
+    const dataPlans = await collection.find().toArray();
+
+    if (dataPlans) {
+      res.status(201).json(dataPlans);
+    } else {
+      res.status(404).json({ message: "No Data Plans information found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
   } finally {
     await client.close();
   }

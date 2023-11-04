@@ -23,8 +23,6 @@ export const AddPlan = ({ isOpen, setIsOpen }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
     const payload = {
       network_name: inputs.network_name,
       plan_name: inputs.plan_name,
@@ -41,7 +39,7 @@ export const AddPlan = ({ isOpen, setIsOpen }) => {
       .then((response) => {
         if (response.status === 201) {
           toast.success(`${response.data.message}`, {
-            position: "top-center",
+            position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -52,7 +50,7 @@ export const AddPlan = ({ isOpen, setIsOpen }) => {
           });
         } else {
           toast.error(`${response.data.message}`, {
-            position: "top-center",
+            position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -66,7 +64,7 @@ export const AddPlan = ({ isOpen, setIsOpen }) => {
       .catch((error) => {
         console.log(error);
         toast.error(`${error.message}`, {
-          position: "top-center",
+          position: "bottom-center",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -112,6 +110,7 @@ export const AddPlan = ({ isOpen, setIsOpen }) => {
                   type="text"
                   name="plan_name"
                   placeholder="Enter Plan Name"
+                  onChange={handleInput}
                   required
                 />
               </div>
