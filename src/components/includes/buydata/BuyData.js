@@ -10,12 +10,16 @@ const BuyData = () => {
   const [types, setTypes] = useState(null);
   const [plans, setPlans] = useState(null);
 
+  const setNetworksInfo = (newInfo) => {
+    setNetworks(newInfo);
+  };
+
   useEffect(() => {
     axios
       .post("/api/network/records")
       .then((response) => {
         const networksInfo = response.data;
-        setNetworks(networksInfo);
+        setNetworksInfo(networksInfo);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -70,6 +74,7 @@ const BuyData = () => {
                   defaultValue={network}
                   onChange={(event) => setNetwork(event.target.value)}
                 >
+                  <option value="">--- Select Network ---</option>
                   {networks.map((network) => {
                     return (
                       <option key={network._id} value={network.network_id}>
