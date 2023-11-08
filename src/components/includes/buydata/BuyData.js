@@ -34,7 +34,7 @@ const BuyData = () => {
         .post(`/api/dataplans/records/${type}`)
         .then((response) => {
           const dataPlans = response.data;
-          setTypes(dataPlans);
+          setPlans(dataPlans);
           setIsLoadingPlan(false);
         })
         .catch((error) => {
