@@ -42,7 +42,7 @@ const BuyData = () => {
           setIsLoadingPlan(false);
         });
     }
-  }, []);
+  }, [type]);
 
   const [amount, setAmount] = useState("");
   const [number, setNumber] = useState("");
