@@ -30,7 +30,6 @@ const BuyData = () => {
 
   useEffect(() => {
     if (type) {
-      setIsLoadingPlan(false);
       axios
         .post(`/api/dataplans/records/${network}/${type}`)
         .then((response) => {
