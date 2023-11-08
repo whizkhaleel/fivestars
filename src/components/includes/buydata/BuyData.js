@@ -147,6 +147,7 @@ const BuyData = () => {
                   placeholder="N0.00"
                   value={plan ? `N${plan.user_price}.00` : "N0.00"}
                   onChange={(event) => setAmount(event.target.value)}
+                  disabled
                 />
               </div>
               <div className="input-group">
