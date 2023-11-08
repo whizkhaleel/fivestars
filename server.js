@@ -862,6 +862,33 @@ app.post("/api/dataplans/records", async (req, res) => {
   }
 });
 
+app.post("/api/dataplans/records/:type", async (req, res) => {
+  const client = new MongoClient(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  const type = req.params.type;
+
+  try {
+    await client.connect();
+    const database = client.db("vtu_db");
+    const collection = database.collection("data_plans");
+
+    const dataPlans = await collection.find({ plan_type: type }).toArray();
+
+    if (dataPlans) {
+      res.status(201).json(dataPlans);
+    } else {
+      res.status(404).json({ message: "No Data Plans information found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await client.close();
+  }
+});
+
 //Monnify
 
 app.post("/webhook/monnify", async (req, res) => {

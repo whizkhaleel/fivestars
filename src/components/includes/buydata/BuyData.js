@@ -7,7 +7,6 @@ import LoadingComponent from "../../../LoadingComponent";
 const BuyData = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [networks, setNetworks] = useState(null);
-  const [types, setTypes] = useState(null);
   const [plans, setPlans] = useState(null);
 
   useEffect(() => {
@@ -27,6 +26,24 @@ const BuyData = () => {
   const [network, setNetwork] = useState("");
   const [type, setType] = useState("");
   const [plan, setPlan] = useState("");
+  const [isLoadingPlan, setIsLoadingPlan] = useState(true);
+
+  useEffect(() => {
+    if (type) {
+      axios
+        .post(`/api/dataplans/records/${type}`)
+        .then((response) => {
+          const dataPlans = response.data;
+          setTypes(dataPlans);
+          setIsLoadingPlan(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching data plan details:", error);
+          setIsLoadingPlan(false);
+        });
+    }
+  }, []);
+
   const [amount, setAmount] = useState("");
   const [number, setNumber] = useState("");
 
@@ -70,7 +87,9 @@ const BuyData = () => {
                   defaultValue={network}
                   onChange={(event) => setNetwork(event.target.value)}
                 >
-                  <option value="">--- Select Network ---</option>
+                  <option value="" disabled>
+                    --- Select Network ---
+                  </option>
                   {networks.map((network) => {
                     return (
                       <option key={network._id} value={network.network_id}>
@@ -87,7 +106,11 @@ const BuyData = () => {
                   defaultValue={type}
                   onChange={(event) => setType(event.target.value)}
                 >
-                  <option value="CG">CG</option>
+                  <option value="" disabled>
+                    --- Select Type ---
+                  </option>
+                  <option value="Gifting">Gifting</option>
+                  <option value="CG">Corporate Gifting</option>
                   <option value="SME">SME</option>
                 </select>
               </div>
@@ -98,8 +121,20 @@ const BuyData = () => {
                   defaultValue={plan}
                   onChange={(event) => setPlan(event.target.value)}
                 >
-                  <option value="1GB">1GB</option>
-                  <option value="@GB">2GB</option>
+                  <option value="" disabled>
+                    --- Select Plan ---
+                  </option>
+                  {isLoadingPlan === true ? (
+                    <option disabled>Loading.....</option>
+                  ) : (
+                    plans.map((plan) => {
+                      return (
+                        <option key={plan._id} value={plan.plan_id}>
+                          {plan.plan_name} - {plan.user_price}
+                        </option>
+                      );
+                    })
+                  )}
                 </select>
               </div>
               <div className="input-group">
