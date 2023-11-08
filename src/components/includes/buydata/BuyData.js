@@ -10,16 +10,12 @@ const BuyData = () => {
   const [types, setTypes] = useState(null);
   const [plans, setPlans] = useState(null);
 
-  const setNetworksInfo = (newInfo) => {
-    setNetworks(newInfo);
-  };
-
   useEffect(() => {
     axios
-      .post("/api/network/records")
+      .post("/api/networks/records")
       .then((response) => {
         const networksInfo = response.data;
-        setNetworksInfo(networksInfo);
+        setNetworks(networksInfo);
         setIsLoading(false);
       })
       .catch((error) => {

@@ -723,7 +723,7 @@ app.post("/api/network/records", async (req, res) => {
     if (networkInfo) {
       res.status(201).json(networkInfo);
     } else {
-      res.status(404).json({ message: "No monnify information found" });
+      res.status(404).json({ message: "No network information found" });
     }
   } catch (err) {
     console.error(err);
