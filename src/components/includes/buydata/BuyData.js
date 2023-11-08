@@ -130,9 +130,8 @@ const BuyData = () => {
                     plans.map((plan) => {
                       return (
                         <option key={plan._id} value={plan.plan_id}>
-                          {plan.network_name} - {plan.plan_name} -{" "}
-                          {plan.plan_type}
-                          {plan.user_price}
+                          {plan.network_name} {plan.plan_name} {plan.plan_type}{" "}
+                          N{plan.user_price}
                         </option>
                       );
                     })
