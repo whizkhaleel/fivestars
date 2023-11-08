@@ -30,6 +30,7 @@ const BuyData = () => {
 
   useEffect(() => {
     if (type) {
+      setIsLoadingPlan(false);
       axios
         .post(`/api/dataplans/records/${network}/${type}`)
         .then((response) => {
@@ -131,6 +132,7 @@ const BuyData = () => {
                       return (
                         <option key={plan._id} value={plan.plan_id}>
                           {plan.network_name} - {plan.plan_name} -{" "}
+                          {plan.plan_type}
                           {plan.user_price}
                         </option>
                       );
