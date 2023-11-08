@@ -74,7 +74,7 @@ const BuyData = () => {
                   {networks.map((network) => {
                     return (
                       <option key={network._id} value={network.network_id}>
-                        {network.name}
+                        {network.network_name}
                       </option>
                     );
                   })}
