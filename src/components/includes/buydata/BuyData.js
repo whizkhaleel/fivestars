@@ -31,7 +31,7 @@ const BuyData = () => {
   useEffect(() => {
     if (type) {
       axios
-        .post(`/api/dataplans/records/${type}`)
+        .post(`/api/dataplans/records/${network}/${type}`)
         .then((response) => {
           const dataPlans = response.data;
           setPlans(dataPlans);
@@ -130,7 +130,8 @@ const BuyData = () => {
                     plans.map((plan) => {
                       return (
                         <option key={plan._id} value={plan.plan_id}>
-                          {plan.plan_name} - {plan.user_price}
+                          {plan.network_name} - {plan.plan_name} -{" "}
+                          {plan.user_price}
                         </option>
                       );
                     })

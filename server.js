@@ -862,19 +862,24 @@ app.post("/api/dataplans/records", async (req, res) => {
   }
 });
 
-app.post("/api/dataplans/records/:type", async (req, res) => {
+app.post("/api/dataplans/records/:network/:type", async (req, res) => {
   const client = new MongoClient(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
   const type = req.params.type;
+  const network = req.params.network;
 
   try {
     await client.connect();
     const database = client.db("vtu_db");
     const collection = database.collection("data_plans");
 
-    const dataPlans = await collection.find({ plan_type: type }).toArray();
+    const dataPlans = await collection
+      .find({
+        $and: [{ plan_type: type }, { network_id: network }],
+      })
+      .toArray();
 
     if (dataPlans) {
       res.status(201).json(dataPlans);
