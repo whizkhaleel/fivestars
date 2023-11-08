@@ -144,7 +144,7 @@ const BuyData = () => {
                   type="text"
                   name="username"
                   placeholder="N0.00"
-                  value="N234.00"
+                  value={plan ? `N${plan.user_price}.00` : "N0.00"}
                   onChange={(event) => setAmount(event.target.value)}
                 />
               </div>
