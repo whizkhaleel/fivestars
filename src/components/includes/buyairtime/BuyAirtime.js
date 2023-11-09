@@ -28,14 +28,14 @@ const BuyAirtime = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const userData = {
+    const payload = {
       network,
       amount,
       number,
     };
 
     axios
-      .post("/api/login", userData)
+      .post("/api/buyairtime", payload)
       .then((response) => {
         console.log(response.data);
       })

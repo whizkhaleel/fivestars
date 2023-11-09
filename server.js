@@ -972,3 +972,43 @@ app.set("port", 3000);
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
+
+// Airtime API
+
+app.post("/api/userapi/details", async (req, res) => {
+  try {
+    const url = "https://najmadata.com/api/topup/";
+    const headers = {
+      Authorization: "Token 5b79354f045d0a4bfc462c6c0ed10ac2402f8a14",
+      "Content-Type": "application/json",
+    };
+
+    const { network_id, amount, phone } = req.body;
+
+    const requestData = {
+      network: network_id, // Replace with the actual value for network_id
+      amount: amount, // Replace with the actual value for amount
+      mobile_number: phone, // Replace with the actual value for phone
+      Ported_number: true,
+      airtime_type: "VTU",
+    };
+
+    axios
+      .post(url, requestData, { headers })
+      .then((response) => {
+        res.status(201).json(response.data);
+      })
+      .catch((error) => {
+        res.status(500).send("Internal server error");
+        console.error("Error:", error);
+      });
+  } catch (error) {
+    res.status(500).send("Internal server error");
+    console.log("Error Fetching User Details");
+  }
+});
+
+app.set("port", 3000);
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
