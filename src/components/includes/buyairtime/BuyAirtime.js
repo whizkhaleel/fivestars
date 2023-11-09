@@ -35,7 +35,7 @@ const BuyAirtime = () => {
     };
 
     axios
-      .post("/api/buyairtime", payload)
+      .post("/api/buyairtime/", payload)
       .then((response) => {
         console.log(response.data);
       })

@@ -975,7 +975,7 @@ app.listen(3000, () => {
 
 // Airtime API
 
-app.post("/api/userapi/details", async (req, res) => {
+app.post("/api/buyairtime/", async (req, res) => {
   try {
     const url = "https://najmadata.com/api/topup/";
     const headers = {
