@@ -18,7 +18,7 @@ const BuyData = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching monnify details:", error);
+        console.error("Error fetching networks details:", error);
         setIsLoading(false);
       });
   }, []);
@@ -29,7 +29,7 @@ const BuyData = () => {
   const [isLoadingPlan, setIsLoadingPlan] = useState(true);
 
   useEffect(() => {
-    if (type) {
+    if (type && network) {
       axios
         .post(`/api/dataplans/records/${network}/${type}`)
         .then((response) => {
