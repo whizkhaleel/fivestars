@@ -42,7 +42,7 @@ const BuyData = () => {
           setIsLoadingPlan(false);
         });
     }
-  }, [type]);
+  }, [type, network]);
 
   const [amount, setAmount] = useState("");
   const [number, setNumber] = useState("");
@@ -66,7 +66,7 @@ const BuyData = () => {
       });
   };
   useEffect(() => {
-    document.title = "FiveStarsData | Login";
+    document.title = "FiveStarsData | Buy Data Plan";
   }, []);
   return (
     <>
@@ -144,7 +144,7 @@ const BuyData = () => {
                   type="text"
                   name="username"
                   placeholder="N0.00"
-                  value={plan ? `N${plan.user_price}.00` : "N0.00"}
+                  value={plan ? `N${plans.user_price}.00` : "N0.00"}
                   onChange={(event) => setAmount(event.target.value)}
                   disabled
                 />
