@@ -87,9 +87,7 @@ const BuyData = () => {
                   defaultValue={network}
                   onChange={(event) => setNetwork(event.target.value)}
                 >
-                  <option value="" disabled>
-                    --- Select Network ---
-                  </option>
+                  <option value="">--- Select Network ---</option>
                   {networks.map((network) => {
                     return (
                       <option key={network._id} value={network.network_id}>
@@ -106,9 +104,7 @@ const BuyData = () => {
                   defaultValue={type}
                   onChange={(event) => setType(event.target.value)}
                 >
-                  <option value="" disabled>
-                    --- Select Type ---
-                  </option>
+                  <option value="">--- Select Type ---</option>
                   <option value="Gifting">Gifting</option>
                   <option value="CG">Corporate Gifting</option>
                   <option value="SME">SME</option>
@@ -121,9 +117,7 @@ const BuyData = () => {
                   defaultValue={plan}
                   onChange={(event) => setPlan(event.target.value)}
                 >
-                  <option value="" disabled>
-                    --- Select Plan ---
-                  </option>
+                  <option value="">--- Select Plan ---</option>
                   {isLoadingPlan === true ? (
                     <option disabled>Loading.....</option>
                   ) : (
@@ -144,7 +138,13 @@ const BuyData = () => {
                   type="text"
                   name="username"
                   placeholder="N0.00"
-                  value={plan ? `N${plans.user_price}.00` : "N0.00"}
+                  value={
+                    plan
+                      ? `N${plans
+                          .filter((item) => item.plan_id === plan)
+                          .map((plan) => plan.user_price)}.00`
+                      : "N0.00"
+                  }
                   onChange={(event) => setAmount(event.target.value)}
                   disabled
                 />
