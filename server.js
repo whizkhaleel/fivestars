@@ -943,6 +943,31 @@ app.post("/webhook/monnify", async (req, res) => {
   }
 });
 
+// API for Data Reselling
+
+app.post("/api/userapi/details", async (req, res) => {
+  try {
+    const url = "https://najmadata.com/api/user/";
+    const headers = {
+      Authorization: "Token 5b79354f045d0a4bfc462c6c0ed10ac2402f8a14",
+      "Content-Type": "application/json",
+    };
+
+    axios
+      .get(url, { headers })
+      .then((response) => {
+        res.status(201).json(response.data);
+      })
+      .catch((error) => {
+        res.status(500).send("Internal server error");
+        console.error("Error:", error);
+      });
+  } catch (error) {
+    res.status(500).send("Internal server error");
+    console.log("Error Fetching User Details");
+  }
+});
+
 app.set("port", 3000);
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

@@ -139,19 +139,14 @@ const Admin = ({ user }) => {
   const [apiInfo, setApiInfo] = useState(null);
 
   useEffect(() => {
-    const url = "https://najmadata.com/api/user/";
-    const headers = {
-      Authorization: "Token 5b79354f045d0a4bfc462c6c0ed10ac2402f8a14",
-      "Content-Type": "application/json",
-    };
-
     axios
-      .get(url, { headers })
+      .post("/api/userapi/details")
       .then((response) => {
-        console.log("Response:", response.data);
+        setApiInfo(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Error fetching user details:", error);
       });
     document.title = "FiveStarsVTU | Admin Dashboard";
   }, []);
@@ -214,7 +209,7 @@ const Admin = ({ user }) => {
               <div className="balance">
                 <AiOutlineCreditCard className="icon" />
                 <div>
-                  <h1>&#8358;{user.accountInfo.balance}</h1>
+                  <h1>&#8358;{apiInfo.user.wallet_balance}</h1>
                   <h3>API Balance</h3>
                 </div>
               </div>
