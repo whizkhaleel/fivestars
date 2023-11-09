@@ -139,7 +139,7 @@ const BuyData = () => {
                   name="username"
                   placeholder="N0.00"
                   value={
-                    plan
+                    plan !== ""
                       ? `N${plans
                           .filter((item) => item.plan_id === plan)
                           .map((plan) => plan.user_price)}.00`
@@ -159,7 +159,9 @@ const BuyData = () => {
                   onChange={(event) => setNumber(event.target.value)}
                 />
               </div>
-              <button className="btn btn-primary">Buy</button>
+              <button type="submit" className="btn btn-primary">
+                Buy
+              </button>
             </form>
           </div>
         </div>
