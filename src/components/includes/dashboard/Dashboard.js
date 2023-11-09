@@ -196,7 +196,7 @@ const Admin = ({ user }) => {
       <div className="__account">
         <div className="__info">
           <div className="user">
-            <h1>Welcome, {user.userInfo.f_name}</h1>
+            <h1>Welcome, {apiInfo && user.userInfo.f_name}</h1>
             <h3>Good Morning!</h3>
             <div className="wallet">
               <div className="balance">
