@@ -209,7 +209,7 @@ const Admin = ({ user }) => {
               <div className="balance">
                 <AiOutlineCreditCard className="icon" />
                 <div>
-                  <h1>&#8358;{apiInfo && apiInfo.user.wallet_balance}</h1>
+                  <h1>&#8358;{apiInfo && apiInfo.user.wallet_balance}.00</h1>
                   <h3>API Balance</h3>
                 </div>
               </div>
