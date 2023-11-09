@@ -136,8 +136,23 @@ const User = ({ user }) => {
 
 const Admin = ({ user }) => {
   const [records, setRecords] = useState(user.transInfo);
+  const [apiInfo, setApiInfo] = useState(null);
 
   useEffect(() => {
+    const url = "https://najmadata.com/api/user/";
+    const headers = {
+      Authorization: "Token 5b79354f045d0a4bfc462c6c0ed10ac2402f8a14",
+      "Content-Type": "application/json",
+    };
+
+    axios
+      .get(url, { headers })
+      .then((response) => {
+        console.log("Response:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
     document.title = "FiveStarsVTU | Admin Dashboard";
   }, []);
 
