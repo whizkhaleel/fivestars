@@ -968,11 +968,6 @@ app.post("/api/userapi/details", async (req, res) => {
   }
 });
 
-app.set("port", 3000);
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
-
 // Airtime API
 
 app.post("/api/buyairtime/", async (req, res) => {
@@ -986,9 +981,9 @@ app.post("/api/buyairtime/", async (req, res) => {
     const { network_id, amount, phone } = req.body;
 
     const requestData = {
-      network: network_id, // Replace with the actual value for network_id
-      amount: amount, // Replace with the actual value for amount
-      mobile_number: phone, // Replace with the actual value for phone
+      network: network_id,
+      amount: amount,
+      mobile_number: phone,
       Ported_number: true,
       airtime_type: "VTU",
     };
