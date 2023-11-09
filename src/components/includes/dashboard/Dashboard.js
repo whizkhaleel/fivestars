@@ -143,7 +143,6 @@ const Admin = ({ user }) => {
       .post("/api/userapi/details")
       .then((response) => {
         setApiInfo(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching user details:", error);
