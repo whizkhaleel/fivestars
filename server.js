@@ -1004,7 +1004,6 @@ app.post("/api/buydata/", async (req, res) => {
       try {
         await client.connect();
         const database = client.db("vtu_db");
-        const users = database.collection("users");
         const accounts = database.collection("user_account");
         const walletHistory = database.collection("wallet_history");
         const transactions = database.collection("user_transactions");
@@ -1013,7 +1012,6 @@ app.post("/api/buydata/", async (req, res) => {
           user_id: new ObjectId(userID),
         });
         const prevBal = Number(user_account.balance);
-        const totalFund = Number(user_account.total_fund);
 
         const date = currentTime();
         const walletData = {

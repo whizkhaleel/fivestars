@@ -55,7 +55,7 @@ const BuyData = ({ user }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const user_id = user.userInfo.user_id;
+    const user_id = user.userInfo._id;
     const payload = {
       network,
       plan,
@@ -72,7 +72,7 @@ const BuyData = ({ user }) => {
             response.data.Status === "successful"
               ? Swal.fire({
                   title: "Successful Transaction!",
-                  text: `${response.data.message} for ${response.data.mobile_number}`,
+                  text: `${response.data.msg} for ${response.data.mobile_number}`,
                   icon: "success",
                 })
               : Swal.fire({
