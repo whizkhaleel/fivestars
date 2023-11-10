@@ -49,7 +49,7 @@ const BuyData = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const userData = {
+    const payload = {
       network,
       plan,
       amount,
@@ -57,7 +57,7 @@ const BuyData = () => {
     };
 
     axios
-      .post("/api/login", userData)
+      .post("/api/buydata/", payload)
       .then((response) => {
         console.log(response.data);
       })

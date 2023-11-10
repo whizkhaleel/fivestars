@@ -968,38 +968,34 @@ app.post("/api/userapi/details", async (req, res) => {
   }
 });
 
-// Airtime API
+// Data API
 
-app.post("/api/buyairtime/", async (req, res) => {
+app.post("/api/buydata/", async (req, res) => {
+  const url = "https://betasub.com.ng/api/data/";
+  const token = "3kfIcC93whlt8AzmAxFHA1aqd7siJ2A8B42Cx3B49odb56DBCEpcCrCeCBAA";
+  const networkId = req.body.network;
+  const mobileNumber = req.body.number;
+  const planId = req.body.plan;
+  const portedNumber = 1;
+
+  const data = {
+    network: networkId,
+    mobile_number: mobileNumber,
+    plan: planId,
+    Ported_number: portedNumber,
+  };
+
+  const headers = {
+    Authorization: `Token ${token}`,
+    "Content-Type": "application/json",
+  };
+
   try {
-    const url = "https://najmadata.com/api/topup/";
-    const headers = {
-      Authorization: "Token 5b79354f045d0a4bfc462c6c0ed10ac2402f8a14",
-      "Content-Type": "application/json",
-    };
-
-    const { network_id, amount, phone } = req.body;
-
-    const requestData = {
-      network: network_id,
-      amount: amount,
-      mobile_number: phone,
-      Ported_number: true,
-      airtime_type: "VTU",
-    };
-
-    axios
-      .post(url, requestData, { headers })
-      .then((response) => {
-        res.status(201).json(response.data);
-      })
-      .catch((error) => {
-        res.status(500).send("Internal server error");
-        console.error("Error:", error);
-      });
+    const response = await axios.post(url, data, { headers });
+    res.json(response.data);
   } catch (error) {
-    res.status(500).send("Internal server error");
-    console.log("Error Fetching User Details");
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
