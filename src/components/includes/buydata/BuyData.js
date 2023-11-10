@@ -3,8 +3,9 @@ import "../panel.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import LoadingComponent from "../../../LoadingComponent";
+import RequireAuth from "../../../RequireAuth";
 
-const BuyData = () => {
+const BuyData = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [networks, setNetworks] = useState(null);
   const [plans, setPlans] = useState(null);
@@ -49,21 +50,25 @@ const BuyData = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const payload = {
-      network,
-      plan,
-      amount,
-      number,
-    };
+    if (user.accountInfo.balance >= amount) {
+      const payload = {
+        network,
+        plan,
+        amount,
+        number,
+      };
 
-    axios
-      .post("/api/buydata/", payload)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      axios
+        .post("/api/buydata/", payload)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert("You don't have enough balance to buy this package!");
+    }
   };
   useEffect(() => {
     document.title = "FiveStarsData | Buy Data Plan";
@@ -170,4 +175,4 @@ const BuyData = () => {
   );
 };
 
-export default BuyData;
+export default RequireAuth(BuyData);
