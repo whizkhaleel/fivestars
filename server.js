@@ -977,6 +977,8 @@ app.post("/api/buydata/", async (req, res) => {
   const mobileNumber = req.body.number;
   const planId = req.body.plan;
   const portedNumber = 1;
+  const userID = req.body.user_id;
+  const amount = req.body.amount;
 
   const data = {
     network: networkId,
@@ -993,6 +995,71 @@ app.post("/api/buydata/", async (req, res) => {
   try {
     const response = await axios.post(url, data, { headers });
     res.json(response.data);
+    if (response.data.Status === "successful") {
+      const client = new MongoClient(URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+
+      try {
+        await client.connect();
+        const database = client.db("vtu_db");
+        const users = database.collection("users");
+        const accounts = database.collection("user_account");
+        const walletHistory = database.collection("wallet_history");
+        const transactions = database.collection("user_transactions");
+
+        const user_account = await accounts.findOne({
+          user_id: new ObjectId(userID),
+        });
+        const prevBal = Number(user_account.balance);
+        const totalFund = Number(user_account.total_fund);
+
+        const date = currentTime();
+        const walletData = {
+          user_id: userID,
+          ref: ref,
+          amount: amount,
+          prev_balance: prevBal,
+          new_balance: prevBal - amount,
+          status: "Success",
+          paidOn: date,
+        };
+
+        const updateAccount = {
+          $set: {
+            balance: prevBal - amount,
+          },
+        };
+
+        const transactionData = {
+          user_id: userID,
+          ref: ref,
+          product: `${response.data.plan_network} ${response.data.plan_name}`,
+          amount: amount,
+          prev_balance: prevBal,
+          new_balance: prevBal - amount,
+          paidOn: date,
+        };
+
+        const wallet = await walletHistory.insertOne(walletData);
+        const update = await accounts.updateOne(
+          { user_id: new ObjectId(userID) },
+          updateAccount
+        );
+        const trans = await transactions.insertOne(transactionData);
+
+        if (wallet && update && trans) {
+          return console.log("Success");
+        } else {
+          console.error("Error");
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        await client.close();
+      }
+    }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal Server Error" });

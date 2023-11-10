@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import LoadingComponent from "../../../LoadingComponent";
 import RequireAuth from "../../../RequireAuth";
+import Swal from "sweetalert2";
 
 const BuyData = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,30 +46,49 @@ const BuyData = ({ user }) => {
     }
   }, [type, network]);
 
-  const [amount, setAmount] = useState("");
+  const amount =
+    plans &&
+    plans
+      .filter((item) => item.plan_id === plan)
+      .map((plan) => plan.user_price);
   const [number, setNumber] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (user.accountInfo.balance >= amount) {
-      const payload = {
-        network,
-        plan,
-        amount,
-        number,
-      };
+    const user_id = user.userInfo.user_id;
+    const payload = {
+      network,
+      plan,
+      amount,
+      number,
+      user_id,
+    };
 
-      axios
-        .post("/api/buydata/", payload)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
+    const balance = user.accountInfo.balance;
+    balance >= parseFloat(amount)
+      ? axios
+          .post("/api/buydata/", payload)
+          .then((response) => {
+            response.data.Status === "successful"
+              ? Swal.fire({
+                  title: "Successful Transaction!",
+                  text: `${response.data.message} for ${response.data.mobile_number}`,
+                  icon: "success",
+                })
+              : Swal.fire({
+                  title: "Error!",
+                  text: "Something went wrong!",
+                  icon: "error",
+                });
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      : Swal.fire({
+          title: "Insufficient Funds!",
+          text: "Please fund your wallet and try again!",
+          icon: "warning",
         });
-    } else {
-      alert("You don't have enough balance to buy this package!");
-    }
   };
   useEffect(() => {
     document.title = "FiveStarsData | Buy Data Plan";
@@ -150,7 +170,6 @@ const BuyData = ({ user }) => {
                           .map((plan) => plan.user_price)}.00`
                       : "N0.00"
                   }
-                  onChange={(event) => setAmount(event.target.value)}
                   disabled
                 />
               </div>
