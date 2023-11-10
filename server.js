@@ -1016,7 +1016,7 @@ app.post("/api/buydata/", async (req, res) => {
         const date = currentTime();
         const walletData = {
           user_id: userID,
-          ref: ref,
+          ref: `FSV-${response.data.id}`,
           amount: amount,
           prev_balance: prevBal,
           new_balance: prevBal - amount,
