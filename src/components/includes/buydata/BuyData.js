@@ -72,7 +72,7 @@ const BuyData = ({ user }) => {
             response.data.Status === "successful"
               ? Swal.fire({
                   title: "Successful Transaction!",
-                  text: `${response.data.msg} for ${response.data.mobile_number}`,
+                  text: `You have successfully recharged N${response.data.amount} for ${response.data.mobile_number}`,
                   icon: "success",
                 })
               : Swal.fire({

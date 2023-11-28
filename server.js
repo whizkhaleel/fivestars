@@ -947,14 +947,17 @@ app.post("/webhook/monnify", async (req, res) => {
 
 app.post("/api/userapi/details", async (req, res) => {
   try {
-    const url = "https://najmadata.com/api/user/";
-    const headers = {
-      Authorization: "Token 5b79354f045d0a4bfc462c6c0ed10ac2402f8a14",
-      "Content-Type": "application/json",
+    const config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://www.gladtidingsdata.com/api/user/",
+      headers: {
+        Authorization: "Token eb337da8f4fb9d53fd3450b728584528d2e3f0e8",
+        "Content-Type": "application/json",
+      },
     };
 
-    axios
-      .get(url, { headers })
+    axios(config)
       .then((response) => {
         res.status(201).json(response.data);
       })
@@ -971,8 +974,6 @@ app.post("/api/userapi/details", async (req, res) => {
 // Data API
 
 app.post("/api/buydata/", async (req, res) => {
-  const url = "https://betasub.com.ng/api/data/";
-  const token = "3kfIcC93whlt8AzmAxFHA1aqd7siJ2A8B42Cx3B49odb56DBCEpcCrCeCBAA";
   const networkId = req.body.network;
   const mobileNumber = req.body.number;
   const planId = req.body.plan;
@@ -987,13 +988,119 @@ app.post("/api/buydata/", async (req, res) => {
     Ported_number: portedNumber,
   };
 
-  const headers = {
-    Authorization: `Token ${token}`,
-    "Content-Type": "application/json",
+  const config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "https://www.gladtidingsdata.com/api/data/",
+    headers: {
+      Authorization: "Token eb337da8f4fb9d53fd3450b728584528d2e3f0e8",
+      "Content-Type": "application/json",
+    },
+    data: data,
   };
 
   try {
-    const response = await axios.post(url, data, { headers });
+    const response = await axios(config);
+    res.json(response.data);
+    if (response.data.Status === "successful") {
+      const client = new MongoClient(URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+
+      try {
+        await client.connect();
+        const database = client.db("vtu_db");
+        const accounts = database.collection("user_account");
+        const walletHistory = database.collection("wallet_history");
+        const transactions = database.collection("user_transactions");
+
+        const user_account = await accounts.findOne({
+          user_id: new ObjectId(userID),
+        });
+        const prevBal = Number(user_account.balance);
+
+        const date = currentTime();
+        const walletData = {
+          user_id: userID,
+          ref: `FSV-${response.data.id}`,
+          amount: amount,
+          prev_balance: prevBal,
+          new_balance: prevBal - amount,
+          status: "Success",
+          paidOn: date,
+        };
+
+        const updateAccount = {
+          $set: {
+            balance: prevBal - amount,
+          },
+        };
+
+        const transactionData = {
+          user_id: userID,
+          ref: ref,
+          product: `${response.data.plan_network} ${response.data.plan_name}`,
+          amount: amount,
+          prev_balance: prevBal,
+          new_balance: prevBal - amount,
+          paidOn: date,
+        };
+
+        const wallet = await walletHistory.insertOne(walletData);
+        const update = await accounts.updateOne(
+          { user_id: new ObjectId(userID) },
+          updateAccount
+        );
+        const trans = await transactions.insertOne(transactionData);
+
+        if (wallet && update && trans) {
+          return console.log("Success");
+        } else {
+          console.error("Error");
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        await client.close();
+      }
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Airtime API
+
+app.post("/api/buyairtime/", async (req, res) => {
+  const networkId = req.body.network;
+  const mobileNumber = req.body.number;
+  const portedNumber = 1;
+  const amount = req.body.amount;
+  const userID = req.body.user_id;
+
+  const data = {
+    network: networkId,
+    amount: amount,
+    mobile_number: mobileNumber,
+    Ported_number: portedNumber,
+    airtime_type: "VTU",
+  };
+
+  const config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "https://www.gladtidingsdata.com/api/topup/",
+    headers: {
+      Authorization: "Token eb337da8f4fb9d53fd3450b728584528d2e3f0e8",
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  try {
+    const response = await axios(config);
     res.json(response.data);
     if (response.data.Status === "successful") {
       const client = new MongoClient(URI, {

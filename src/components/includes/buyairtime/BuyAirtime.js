@@ -3,8 +3,10 @@ import "../panel.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import LoadingComponent from "../../../LoadingComponent";
+import RequireAuth from "../../../RequireAuth";
+import Swal from "sweetalert2";
 
-const BuyAirtime = () => {
+const BuyAirtime = ({ user }) => {
   const [network, setNetwork] = useState("");
   const [amount, setAmount] = useState("");
   const [number, setNumber] = useState("");
@@ -28,20 +30,39 @@ const BuyAirtime = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const user_id = user.userInfo._id;
     const payload = {
       network,
       amount,
       number,
+      user_id: user_id,
     };
 
-    axios
-      .post("/api/buyairtime/", payload)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const balance = user.accountInfo.balance;
+    balance >= parseFloat(amount)
+      ? axios
+          .post("/api/buyairtime/", payload)
+          .then((response) => {
+            response.data.Status === "successful"
+              ? Swal.fire({
+                  title: "Successful Transaction!",
+                  text: `${response.data.msg} for ${response.data.mobile_number}`,
+                  icon: "success",
+                })
+              : Swal.fire({
+                  title: "Error!",
+                  text: "Something went wrong!",
+                  icon: "error",
+                });
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      : Swal.fire({
+          title: "Insufficient Funds!",
+          text: "Please fund your wallet and try again!",
+          icon: "warning",
+        });
   };
   useEffect(() => {
     document.title = "FiveStarsData | Buy Airtime";
@@ -106,4 +127,4 @@ const BuyAirtime = () => {
   );
 };
 
-export default BuyAirtime;
+export default RequireAuth(BuyAirtime);
