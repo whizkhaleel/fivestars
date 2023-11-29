@@ -1039,7 +1039,7 @@ app.post("/api/buydata/", async (req, res) => {
 
         const transactionData = {
           user_id: userID,
-          ref: ref,
+          ref: response.data.ident,
           product: `${response.data.plan_network} ${response.data.plan_name}`,
           amount: amount,
           prev_balance: prevBal,
@@ -1139,7 +1139,7 @@ app.post("/api/buyairtime/", async (req, res) => {
 
         const transactionData = {
           user_id: userID,
-          ref: ref,
+          ref: response.data.ident,
           product: `${response.data.plan_network} ${response.data.plan_name}`,
           amount: amount,
           prev_balance: prevBal,
