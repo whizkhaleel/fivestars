@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import LoadingComponent from "../../../LoadingComponent";
 import RequireAuth from "../../../RequireAuth";
 import Swal from "sweetalert2";
+import { response } from "express";
 
 const BuyData = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -69,17 +70,19 @@ const BuyData = ({ user }) => {
       ? axios
           .post("/api/buydata/", payload)
           .then((response) => {
-            response.data.Status === "successful"
-              ? Swal.fire({
-                  title: "Successful Transaction!",
-                  text: `You have successfully send ${response.data.plan_network} ${response.data.plan_name} for ${response.data.mobile_number}`,
-                  icon: "success",
-                })
-              : Swal.fire({
-                  title: "Successful Transaction!",
-                  text: `You have successfully send ${response.data.plan_network} ${response.data.plan_name} for ${response.data.mobile_number}`,
-                  icon: "success",
-                });
+            if (response.data.Status === "successful") {
+              Swal.fire({
+                title: "Successful Transaction!",
+                text: `You have successfully send ${response.data.plan_network} ${response.data.plan_name} for ${response.data.mobile_number}`,
+                icon: "success",
+              });
+            } else if (response.response.status === 400) {
+              Swal.fire({
+                title: "Error!",
+                text: "Something went wrong!",
+                icon: "error",
+              });
+            }
           })
           .catch((error) => {
             console.log(error);
