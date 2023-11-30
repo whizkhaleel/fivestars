@@ -73,7 +73,7 @@ const User = ({ user }) => {
               <div className="balance">
                 <SlWallet className="icon" />
                 <div>
-                  <h1>&#8358;{user.accountInfo.balance}</h1>
+                  <h1>&#8358;{user.accountInfo.balance.toFixed(2)}</h1>
                   <h3>Wallet Balance</h3>
                 </div>
               </div>
