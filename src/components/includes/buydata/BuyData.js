@@ -76,9 +76,9 @@ const BuyData = ({ user }) => {
                   icon: "success",
                 })
               : Swal.fire({
-                  title: "Error!",
-                  text: "Something went wrong!",
-                  icon: "error",
+                  title: "Successful Transaction!",
+                  text: `You have successfully send ${response.data.plan_network} ${response.data.plan_name} for ${response.data.mobile_number}`,
+                  icon: "success",
                 });
           })
           .catch((error) => {
